@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('packages', '0016_auto_20210201_0332'),
+   
         ('itineraries', '0007_faq_optionalrenting'),
     ]
 

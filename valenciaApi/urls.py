@@ -37,20 +37,42 @@ from packages.views import (
     PackageTypeDetailApi,
     PackageHomeListApi,
     PackageListApi,
+    PackageOptionalTours,
     ExperienceListApi,
     InterestListApi,
     NotificationListApi,
     NotificationRetrieveApi,
+    PackageOptionalSearchApi,
 )
 
 from itineraries.views import (
     ItineraryRetrieveApi
 )
 
+from old_itinerario.views import (
+    ItineraryOldRetrieveApi
+)
+
 from specialists.views import (
     ContactCreateApi,
     NewsletterCreateApi
 )
+
+from tailors.views import (
+    TailorListApi,
+)
+from ourPurpose.views import (
+    OurPurposeListApi,
+)
+
+from history.views import (
+    HistoryApi,
+)
+
+from popUp.views import (
+    PopUpListApi
+)
+
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -69,8 +91,10 @@ admin.site.site_header = 'Valencia Travel'
 admin.site.site_title = 'Valencia Travel'
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
+    url(r'^chaining/', include('smart_selects.urls')),
 
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
@@ -94,11 +118,20 @@ urlpatterns = [
     path('packages/home/', PackageHomeListApi.as_view(), name='packages-search'),
     path('packages/', PackageSearchApi.as_view(), name='packages-search'),
     path('packages/list/', PackageListApi.as_view(), name='packages-list'),
+    path('packages/optional/', PackageOptionalSearchApi.as_view(), name='packages-optional'),
+
 
     path('experiences/list/', ExperienceListApi.as_view(), name='experiences-list'),
 
     path('package/<str:slug>', PackageRetrieveApi.as_view(), name='packages-retrieve'),
     path('itineraries/<int:pk>', ItineraryRetrieveApi.as_view(), name='itineraries-retrieve'),
+    path('old_itinerario/<int:pk>', ItineraryOldRetrieveApi.as_view(), name='itinerariesOld-retrieve'),
+
+    path('tailors/list/', TailorListApi.as_view(), name='tailors-retrieve'),
+    path('ourpurpose/list/', OurPurposeListApi.as_view(), name='ourpurpose-retrieve'),
+    
+    path('history/', HistoryApi.as_view(), name='history-retrieve'),
+    path('popup/', PopUpListApi.as_view(), name='popup-retrieve'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

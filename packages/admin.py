@@ -1,53 +1,75 @@
 from django.contrib import admin
+from search_admin_autocomplete.admin import SearchAutoCompleteAdmin
 from .models import Package, PackageImage, PackageType, Month, Experience, Interest, Notification
 from itineraries.models import (
     Itinerary,
     Faq,
     OptionalRenting,
     DatesAndPrices,
+    ItineraryImage,
+)
+from old_itinerario.models import (
+    ItineraryOld
 )
 from adminsortable2.admin import SortableAdminMixin
+from modelclone import ClonableModelAdmin
+from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 
 
-class DatesAndPricesAdmin(admin.StackedInline):
+class DatesAndPricesAdmin(NestedStackedInline):
     model = DatesAndPrices
     extra = 0
 
 
-class OptionalRentingAdmin(admin.StackedInline):
+class OptionalRentingAdmin(NestedStackedInline):
     model = OptionalRenting
     extra = 0
 
 
-class FaqAdmin(admin.StackedInline):
+class FaqAdmin(NestedStackedInline):
     model = Faq
     extra = 0
 
 
-class ItineraryAdmin(admin.StackedInline):
+# class ItineraryAdmin(admin.StackedInline):
+#     model = Itinerary
+#     extra = 0
+class ItineraryImageAdmin(NestedStackedInline):
+    model = ItineraryImage
+    extra = 0
+    fk_name = 'itinerary'
+class ItineraryAdmin(NestedStackedInline):
     model = Itinerary
     extra = 0
+    fk_name = 'package'
+    inlines = [ItineraryImageAdmin]
 
+class ItineraryOldAdmin(NestedStackedInline):
+    model = ItineraryOld
+    extra = 0
 
-class PackageImageAdmin(admin.TabularInline):
+class PackageImageAdmin(NestedStackedInline):
     model = PackageImage
     extra = 0
     fields = ['image', 'alt', 'image_tag']
     readonly_fields = ['image_tag']
+    inlines = ""
+
 
 
 @admin.register(Package)
-class PackageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'destination', 'published')
-    search_fields = ('title', 'destination__title', )
+class PackageAdmin(ClonableModelAdmin,NestedModelAdmin, admin.ModelAdmin):
+    list_display = ('title', 'days','destination', 'published', 'optional')
+    search_fields = ('title', 'destination__title', 'optional')
     inlines = [
         PackageImageAdmin,
         ItineraryAdmin,
+        ItineraryOldAdmin,
         FaqAdmin,
         OptionalRentingAdmin,
         DatesAndPricesAdmin
     ]
-
+    save_as = True
     class Meta:
         model = Package
 

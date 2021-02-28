@@ -14,10 +14,13 @@ class ItineraryItemsAdmin(admin.StackedInline):
 
 @admin.register(Itinerary)
 class ItineraryAdmin(admin.ModelAdmin):
-    list_display = ('subtitle', 'package', 'active')
+    list_display = ('subtitle', 'package','get_days', 'active')
     search_fields = ('subtitle', 'package__title', )
     inlines = [ItineraryImageAdmin, ItineraryItemsAdmin]
+    def get_days(self, obj):
+        return obj.package.days
 
+    get_days.short_description = '# Days of Package'
     class Meta:
         model = Itinerary
 

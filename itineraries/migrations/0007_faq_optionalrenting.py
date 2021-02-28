@@ -8,7 +8,7 @@ import tinymce.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('packages', '0016_auto_20210201_0332'),
+      
         ('itineraries', '0006_auto_20210122_1540'),
     ]
 
