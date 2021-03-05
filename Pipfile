@@ -21,6 +21,10 @@ drf-yasg2 = "*"
 django-admin-sortable2 = "*"
 django-sendgrid-v5 = "*"
 python-dotenv = "*"
+django-smart-selects = "*"
+django-search-admin-autocomplete = "*"
+django-modelclone = "*"
+django-nested-inline = "*"
 
 [requires]
 python_version = "3.8"

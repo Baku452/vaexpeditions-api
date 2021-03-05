@@ -97,11 +97,19 @@ class ExperienceListApi(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class PackageDestinationListApi(APIView):
+    def get(self, request, slug):
+        packages = Package.objects.all().filter(destination__slug=slug)
+        serializer = PackageSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class PackageListApi(APIView):
     def get(self, request):
         packages = Package.objects.all().filter(published=True)
         serializer = PackageSerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class PackageOptionalTours(APIView):
     def get(self, request):
@@ -119,6 +127,9 @@ class CharInFilter(filters.BaseInFilter, filters.CharFilter):
 
 
 class PackageFilter(filters.FilterSet):
+
+    slug = CharInFilter(field_name="country__slug", lookup_expr="in")
+
     destination = NumberInFilter(field_name="destination", lookup_expr="in")
     start = filters.NumberFilter(field_name ="days", lookup_expr='gte')
     end = filters.NumberFilter(field_name="days", lookup_expr='lte')
@@ -129,7 +140,8 @@ class PackageFilter(filters.FilterSet):
 
     class Meta:
         model = Package
-        fields = ['destination', 'start', 'end', 'activity', 'types', 'interests', 'months']
+        fields = ['slug', 'destination', 'start', 'end', 'activity', 'types', 'interests', 'months']
+
 
 class PackageOptionalFilter(filters.FilterSet):
     destination = NumberInFilter(field_name="destination", lookup_expr="in")
@@ -144,6 +156,7 @@ class PackageSearchApi(generics.ListAPIView):
     serializer_class = PackageSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = PackageFilter
+
 
 class PackageOptionalSearchApi(generics.ListAPIView):
     queryset = Package.objects.all().filter(optional=True).distinct()

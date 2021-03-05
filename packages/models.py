@@ -5,7 +5,7 @@ from django.utils.html import mark_safe
 from imagekit.models import ImageSpecField, ProcessedImageField
 from autoslug import AutoSlugField
 from imagekit.processors import ResizeToFill
-from destinations.models import Destination
+from destinations.models import Destination, Country
 from django.core.validators import FileExtensionValidator
 from smart_selects.db_fields import ChainedForeignKey
 import os
@@ -131,6 +131,14 @@ class PackageType(models.Model):
         validators=[FileExtensionValidator(['svg'])]
     )
 
+    thumbnail = ProcessedImageField(
+        upload_to='package-types',
+        processors=[ResizeToFill(350, 300)],
+        format='JPEG',
+        options={'quality': 100},
+        blank=True
+    )
+
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -177,7 +185,7 @@ class Experience(models.Model):
 
     original = ImageSpecField(
         source='image',
-        processors=[ResizeToFill(1500, 800)],
+        processors=[ResizeToFill(1600, 700)],
         format='JPEG',
         options={'quality': 98}
     )
@@ -259,6 +267,12 @@ class Package(models.Model):
         on_delete=models.CASCADE,
     )
 
+    country = models.ForeignKey(
+        Country,
+        default=None,
+        on_delete=models.CASCADE,
+    )
+
     activity = models.IntegerField(
         choices=ACTIVITY_CHOICES,
         default=1
@@ -292,15 +306,17 @@ class Package(models.Model):
         processors=[ResizeToFill(390, 230)],
         format='JPEG',
         options={'quality': 100},
-        blank = True
+        blank=True
     )
+
     old_overview = HTMLField(blank=True)
     published = models.BooleanField(default=False)
     is_home = models.BooleanField(default=False)
+    atypical = models.BooleanField(default=False)
+
     optional = models.BooleanField(default=False)
     show_specialist = models.BooleanField(default=False)
     recommendations = HTMLField(blank=True)
-
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
