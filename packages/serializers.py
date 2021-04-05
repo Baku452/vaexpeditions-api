@@ -1,11 +1,9 @@
 from .models import Package, PackageType, PackageImage, Experience, Interest, Notification
 from specialists.models import Specialist
 from rest_framework import serializers
-from old_itinerario.serializers import ItineraryOldSerializer
 from itineraries.serializers import (
     ItinerarySerializer,
     FaqSerializer,
-    OptionalRentingSerializer,
     DatesAndPricesSerializer,
 )
 
@@ -66,10 +64,8 @@ class PackageDetailSerializer(serializers.ModelSerializer):
     images = PackageImageSerializer(many=True, read_only=True)
     specialist = SpecialistSerializer()
     itineraries = ItinerarySerializer(many=True, read_only=True)
-    old_itinerario = ItineraryOldSerializer(many=True, read_only=True)
     related_packages = PackageSerializer(many=True, read_only=True)
     faqs = FaqSerializer(many=True, read_only=True)
-    optionals = OptionalRentingSerializer(many=True, read_only=True)
     dates_prices = DatesAndPricesSerializer(many=True, read_only=True)
 
     class Meta:

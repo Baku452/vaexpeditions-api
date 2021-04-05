@@ -85,32 +85,6 @@ class Faq(models.Model):
     def __str__(self):
         return self.title
 
-
-class OptionalRenting(models.Model):
-
-    package = models.ForeignKey(
-        Package,
-        default=None,
-        related_name='optionals',
-        on_delete=models.CASCADE
-    )
-
-    title = models.CharField(max_length=255, default='')
-    content = HTMLField()
-
-    order = models.PositiveIntegerField(default=0, blank=False, null=False)
-
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'optional_renting'
-        ordering = ['order']
-
-    def __str__(self):
-        return self.title
-
-
 class DatesAndPrices(models.Model):
 
     package = models.ForeignKey(

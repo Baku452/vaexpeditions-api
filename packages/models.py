@@ -20,8 +20,8 @@ RATING_CHOICES = (
 )
 
 ACTIVITY_CHOICES = (
-    (1, "Very HIgh"),
-    (2, "HIgh"),
+    (1, "Very High"),
+    (2, "High"),
     (3, "Moderate"),
     (4, "Low"),
     (5, "Very Low"),
@@ -132,7 +132,7 @@ class PackageType(models.Model):
     )
 
     thumbnail = ProcessedImageField(
-        upload_to='package-types',
+        upload_to='images/package-type/',
         processors=[ResizeToFill(350, 300)],
         format='JPEG',
         options={'quality': 100},
@@ -309,7 +309,6 @@ class Package(models.Model):
         blank=True
     )
 
-    old_overview = HTMLField(blank=True)
     published = models.BooleanField(default=False)
     is_home = models.BooleanField(default=False)
     atypical = models.BooleanField(default=False)

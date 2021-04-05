@@ -54,10 +54,6 @@ from itineraries.views import (
     ItineraryRetrieveApi
 )
 
-from old_itinerario.views import (
-    ItineraryOldRetrieveApi
-)
-
 from specialists.views import (
     ContactCreateApi,
     NewsletterCreateApi
@@ -138,7 +134,6 @@ urlpatterns = [
 
     path('package/<str:slug>', PackageRetrieveApi.as_view(), name='packages-retrieve'),
     path('itineraries/<int:pk>', ItineraryRetrieveApi.as_view(), name='itineraries-retrieve'),
-    path('old_itinerario/<int:pk>', ItineraryOldRetrieveApi.as_view(), name='itinerariesOld-retrieve'),
 
     path('tailors/list/', TailorListApi.as_view(), name='tailors-retrieve'),
     path('ourpurpose/list/', OurPurposeListApi.as_view(), name='ourpurpose-retrieve'),

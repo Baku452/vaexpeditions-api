@@ -3,7 +3,6 @@ from .models import (
     ItineraryImage,
     ItineraryItems,
     Faq,
-    OptionalRenting,
     DatesAndPrices,
 )
 from rest_framework import serializers
@@ -37,14 +36,6 @@ class FaqSerializer(serializers.ModelSerializer):
     class Meta:
         model = Faq
         fields = '__all__'
-
-
-class OptionalRentingSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = OptionalRenting
-        fields = '__all__'
-
 
 class DatesAndPricesSerializer(serializers.ModelSerializer):
 

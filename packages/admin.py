@@ -4,13 +4,10 @@ from .models import Package, PackageImage, PackageType, Month, Experience, Inter
 from itineraries.models import (
     Itinerary,
     Faq,
-    OptionalRenting,
     DatesAndPrices,
     ItineraryImage,
 )
-from old_itinerario.models import (
-    ItineraryOld
-)
+
 from adminsortable2.admin import SortableAdminMixin
 from modelclone import ClonableModelAdmin
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
@@ -19,12 +16,6 @@ from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 class DatesAndPricesAdmin(NestedStackedInline):
     model = DatesAndPrices
     extra = 0
-
-
-class OptionalRentingAdmin(NestedStackedInline):
-    model = OptionalRenting
-    extra = 0
-
 
 class FaqAdmin(NestedStackedInline):
     model = Faq
@@ -44,10 +35,6 @@ class ItineraryAdmin(NestedStackedInline):
     fk_name = 'package'
     inlines = [ItineraryImageAdmin]
 
-class ItineraryOldAdmin(NestedStackedInline):
-    model = ItineraryOld
-    extra = 0
-
 class PackageImageAdmin(NestedStackedInline):
     model = PackageImage
     extra = 0
@@ -64,9 +51,7 @@ class PackageAdmin(ClonableModelAdmin,NestedModelAdmin, admin.ModelAdmin):
     inlines = [
         PackageImageAdmin,
         ItineraryAdmin,
-        ItineraryOldAdmin,
         FaqAdmin,
-        OptionalRentingAdmin,
         DatesAndPricesAdmin
     ]
     save_as = True
