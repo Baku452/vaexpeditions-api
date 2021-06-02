@@ -230,7 +230,11 @@ class Notification(models.Model):
 class Package(models.Model):
     title = models.CharField(max_length=255, default='')
     keywords = models.TextField(default='')
-
+    titleSEO = models.TextField(max_length=255, default='')
+    highligths = models.TextField(max_length=255, default='', blank=True)
+    price = models.TextField(max_length=255, default='', blank=True)
+    offer = models.TextField(max_length=255, default='', blank=True)
+    saveUpTo = models.TextField(max_length=255, default='', blank=True)
     summary = models.TextField(max_length=350, default='')
     slug = AutoSlugField(
         populate_from='title',
@@ -244,11 +248,7 @@ class Package(models.Model):
 
     package_type = models.ManyToManyField(PackageType)
 
-    related_packages = models.ManyToManyField(
-        "self",
-        blank=True,
-        default=None,
-    )
+    
 
     interest = models.ManyToManyField(Interest)
 
@@ -312,10 +312,13 @@ class Package(models.Model):
     published = models.BooleanField(default=False)
     is_home = models.BooleanField(default=False)
     atypical = models.BooleanField(default=False)
-
+    promo = models.BooleanField(default=False)
+    luxury = models.BooleanField(default=False)
     optional = models.BooleanField(default=False)
     show_specialist = models.BooleanField(default=False)
     recommendations = HTMLField(blank=True)
+
+    rating = models.IntegerField(blank=True, default=0)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

@@ -14,6 +14,8 @@ from .serializers import (
     PackageDetailTypesSerializer,
     InterestSerializer,
     NotificationSerializer,
+    PackageTitleSerializer
+
 )
 
 from rest_framework import generics
@@ -163,3 +165,9 @@ class PackageOptionalSearchApi(generics.ListAPIView):
     serializer_class = PackageSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = PackageOptionalFilter
+
+class PackageTitleApi(APIView):
+    def get(self, request):
+        packages = Package.objects.all().filter(published=True).order_by('-rating')
+        serializer = PackageTitleSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

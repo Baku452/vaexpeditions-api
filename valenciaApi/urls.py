@@ -34,6 +34,13 @@ from destinations.views import (
     CountryListApi,
 )
 
+from blog.views import (
+    BlogTypeListApi,
+    BlogRetrieveApi,
+    BlogSearchApi,
+    BlogListApi
+)
+
 from packages.views import (
     PackageTypeListApi,
     PackageSearchApi,
@@ -41,6 +48,7 @@ from packages.views import (
     PackageTypeDetailApi,
     PackageHomeListApi,
     PackageListApi,
+    PackageTitleApi,
     PackageOptionalTours,
     ExperienceListApi,
     InterestListApi,
@@ -125,6 +133,7 @@ urlpatterns = [
 
     path('packages/home/', PackageHomeListApi.as_view(), name='packages-search'),
     path('packages/', PackageSearchApi.as_view(), name='packages-search'),
+    path('packages/titles/', PackageTitleApi.as_view(), name='packages-titles'),
     path('packages/list/', PackageListApi.as_view(), name='packages-list'),
     path('packages/optional/', PackageOptionalSearchApi.as_view(), name='packages-optional'),
     path('packages/<str:slug>', PackageDestinationListApi.as_view(), name='packages-list-slug'),
@@ -140,6 +149,13 @@ urlpatterns = [
     
     path('history/', HistoryApi.as_view(), name='history-retrieve'),
     path('popup/', PopUpListApi.as_view(), name='popup-retrieve'),
+
+    path('blog/<str:slug>', BlogRetrieveApi.as_view(), name='blog-retrieve'),
+    path('blogtypes/', BlogTypeListApi.as_view(), name='blog-types'),
+    path('blog/', BlogSearchApi.as_view(), name='blog-search'),
+    path('blog/list/', BlogListApi.as_view(), name='blog-list'),
+
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
