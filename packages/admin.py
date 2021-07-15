@@ -28,6 +28,8 @@ class FaqAdmin(NestedStackedInline):
 class ItineraryImageAdmin(NestedStackedInline):
     model = ItineraryImage
     extra = 0
+    fields = ['image', 'alt', 'order','image_tag']
+    readonly_fields = ['image_tag']
     fk_name = 'itinerary'
 class ItineraryAdmin(NestedStackedInline):
     model = Itinerary

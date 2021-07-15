@@ -3,6 +3,7 @@ from tinymce.models import HTMLField
 from packages.models import Package
 from imagekit.models import ProcessedImageField
 from autoslug import AutoSlugField
+from django.utils.html import mark_safe
 from imagekit.processors import ResizeToFill
 import os
 
@@ -119,6 +120,7 @@ class DatesAndPrices(models.Model):
 class ItineraryImage(models.Model):
 
     alt = models.CharField(max_length=255, default='')
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     slug = AutoSlugField(
         populate_from='alt',
@@ -142,9 +144,12 @@ class ItineraryImage(models.Model):
 
     class Meta:
         db_table = 'itinerary_image'
+        ordering = ['order']
 
     def __str__(self):
         return self.itinerary.subtitle
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="150" height="150" />' % self.image)
 
 
 class ItineraryItems(models.Model):

@@ -230,7 +230,7 @@ class Notification(models.Model):
 class Package(models.Model):
     title = models.CharField(max_length=255, default='')
     keywords = models.TextField(default='')
-    titleSEO = models.TextField(max_length=255, default='')
+    titleSEO = models.TextField(max_length=255, default='',blank=True)
     highligths = models.TextField(max_length=255, default='', blank=True)
     price = models.TextField(max_length=255, default='', blank=True)
     offer = models.TextField(max_length=255, default='', blank=True)
@@ -344,6 +344,7 @@ class PackageImage(models.Model):
         unique_with=['alt'],
         always_update=True
     )
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     image = ProcessedImageField(
         upload_to=path_and_rename_package,
@@ -354,6 +355,7 @@ class PackageImage(models.Model):
 
     class Meta:
         db_table = 'package_image'
+        ordering = ['order']
 
     def __str__(self):
         return self.alt

@@ -25,6 +25,7 @@ django-smart-selects = "*"
 django-search-admin-autocomplete = "*"
 django-modelclone = "*"
 django-nested-inline = "*"
+django-ckeditor = "*"
 
 [requires]
 python_version = "3.8"
