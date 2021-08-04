@@ -189,3 +189,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 USE_DJANGO_JQUERY = True
+FILE_UPLOAD_PERMISSIONS=0o640
