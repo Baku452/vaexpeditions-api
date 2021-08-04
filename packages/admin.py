@@ -56,7 +56,7 @@ class PackageAdmin(ClonableModelAdmin,NestedModelAdmin, admin.ModelAdmin):
         FaqAdmin,
         DatesAndPricesAdmin
     ]
-    save_as = True
+    # save_as = True
     class Meta:
         model = Package
 
