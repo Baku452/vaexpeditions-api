@@ -181,7 +181,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "a11ycheck ltr rtl | showcomments addcomment code",
 }
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static_root/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
