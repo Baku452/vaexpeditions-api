@@ -1,6 +1,7 @@
-from .models import Country, Banner, Destination, Reason, WeatherItems
+from .models import Country, Banner, Destination, Reason, WeatherItems, FaqDest
+from packages.models import Package
 from rest_framework import serializers
-from packages.serializers import PackageTypeSerializer
+from packages.serializers import PackageTypeSerializer, PackageSerializer
 
 
 class WeatherItemsSerializer(serializers.ModelSerializer):
@@ -19,9 +20,24 @@ class ReasonSerializer(serializers.ModelSerializer):
         model = Reason
         fields = '__all__'
 
+class FAQsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FaqDest
+        fields = '__all__'
+# class PackageSerializer(serializers.ModelSerializer):
+
+#     thumbnail = serializers.ImageField(read_only=True)
+#     original = serializers.ImageField(read_only=True)
+
+#     class Meta:
+#         model = Package
+#         fields = '__all__'
+
 
 class DestinationSerializer(serializers.ModelSerializer):
     reasons = ReasonSerializer(many=True, read_only=True)
+    packages = PackageSerializer(many=True, read_only=True)
+    faqs = FAQsSerializer(many=True, read_only=True)
     weathers = WeatherItemsSerializer(many=True, read_only=True)
     thumbnail = serializers.ImageField(read_only=True)
     original = serializers.ImageField(read_only=True)

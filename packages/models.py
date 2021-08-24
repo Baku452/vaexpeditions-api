@@ -266,6 +266,8 @@ class Package(models.Model):
         Destination,
         default=None,
         on_delete=models.CASCADE,
+        related_name='packages',
+
     )
 
     country = models.ForeignKey(

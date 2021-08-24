@@ -86,7 +86,7 @@ class Country(models.Model):
     class Meta:
         db_table = 'country'
         ordering = ['order']
-        verbose_name_plural = 'Countries'
+        verbose_name_plural = 'Continents'
 
     def __str__(self):
         return self.name
@@ -152,6 +152,7 @@ class Destination(models.Model):
     class Meta:
         db_table = 'destination'
         ordering = ['order']
+        verbose_name_plural = 'Destinations - Countries'
 
     def __str__(self):
         return self.title
@@ -258,3 +259,27 @@ class Banner(models.Model):
 
     def __str__(self):
         return self.name
+
+class FaqDest(models.Model):
+
+    destination = models.ForeignKey(
+        Destination,
+        default=None,
+        related_name='faqs',
+        on_delete=models.CASCADE
+    )
+
+    title = models.CharField(max_length=255, default='')
+    content = HTMLField()
+
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'faqDest'
+        ordering = ['order']
+
+    def __str__(self):
+        return self.title
