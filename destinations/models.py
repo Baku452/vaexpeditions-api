@@ -25,6 +25,15 @@ def path_and_rename_destination(instance, filename):
         filename = '{}.{}'.format(instance.slug, ext)
     return os.path.join(upload_to, filename)
 
+def path_and_rename_continent(instance, filename):
+    upload_to = 'images/continent/'
+    ext = filename.split('.')[-1]
+    if instance.pk:
+        filename = '{}.{}'.format(instance.slug, ext)
+    else:
+        filename = '{}.{}'.format(instance.slug, ext)
+    return os.path.join(upload_to, filename)
+
 MONTHS_CHOICES = (
     ("JAN", "January"),
     ("FEB", "February"),
@@ -90,6 +99,41 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
+
+class ContinentImage(models.Model):
+    continent = models.ForeignKey(
+        Country,
+        related_name='images',
+        default=None,
+        on_delete=models.CASCADE
+    )
+    alt = models.CharField(max_length=255, default='')
+
+    slug = AutoSlugField(
+        populate_from='alt',
+        unique_with=['alt'],
+        always_update=True
+    )
+
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    image = ProcessedImageField(
+        upload_to=path_and_rename_continent,
+        processors=[ResizeToFill(1600, 700)],
+        format='JPEG',
+        options={'quality': 100}
+    )
+    class Meta:
+        db_table = 'continent_image'
+        ordering = ['order']
+
+    def __str__(self):
+        return self.alt
+
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="150" height="150" />' % self.image)
+
+
 
 
 class Destination(models.Model):

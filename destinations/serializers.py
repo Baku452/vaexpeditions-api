@@ -1,4 +1,4 @@
-from .models import Country, Banner, Destination, Reason, WeatherItems, FaqDest, DestinationImage
+from .models import Country, Banner, Destination, Reason, WeatherItems, FaqDest, DestinationImage, ContinentImage
 from packages.models import Package
 from rest_framework import serializers
 from packages.serializers import PackageTypeSerializer, PackageSerializer
@@ -36,6 +36,11 @@ class PackageSerializer(serializers.ModelSerializer):
         model = Package
         fields = ['id','title','slug','summary','thumbnail']
 
+class ContinentImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DestinationImage
+        fields = '__all__' 
+
 
 class DestinationSerializer(serializers.ModelSerializer):
     reasons = ReasonSerializer(many=True, read_only=True)
@@ -57,6 +62,7 @@ class CountrySerializer(serializers.ModelSerializer):
     destinations = DestinationSerializer(many=True, read_only=True)
     thumbnail = serializers.ImageField(read_only=True)
     original = serializers.ImageField(read_only=True)
+    images = ContinentImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Country
