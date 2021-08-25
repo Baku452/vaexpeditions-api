@@ -205,6 +205,36 @@ class Reason(models.Model):
     def __str__(self):
         return self.title
 
+class DestinationImage(models.Model):
+    destination = models.ForeignKey(
+        Destination,
+        related_name='images',
+        default=None,
+        on_delete=models.CASCADE
+    )
+    alt = models.CharField(max_length=255, default='')
+
+    slug = AutoSlugField(
+        populate_from='alt',
+        unique_with=['alt'],
+        always_update=True
+    )
+
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    image = ProcessedImageField(
+        upload_to=path_and_rename_destination,
+        format='JPEG',
+        options={'quality': 100}
+    )
+    class Meta:
+        db_table = 'destination_image'
+        ordering = ['order']
+        
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="150" height="150" />' % self.image)
+
+
 
 class WeatherItems(models.Model):
 
