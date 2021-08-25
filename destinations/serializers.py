@@ -29,14 +29,12 @@ class DestImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = DestinationImage
         fields = '__all__' 
-# class PackageSerializer(serializers.ModelSerializer):
 
-#     thumbnail = serializers.ImageField(read_only=True)
-#     original = serializers.ImageField(read_only=True)
-
-#     class Meta:
-#         model = Package
-#         fields = '__all__'
+class PackageSerializer(serializers.ModelSerializer):
+    thumbnail = serializers.ImageField(read_only=True)
+    class Meta:
+        model = Package
+        fields = ['id','title','slug','summary','thumbnail']
 
 
 class DestinationSerializer(serializers.ModelSerializer):
