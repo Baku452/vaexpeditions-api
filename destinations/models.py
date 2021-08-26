@@ -53,6 +53,7 @@ MONTHS_CHOICES = (
 class Country(models.Model):
     name = models.CharField(max_length=255)
     content = HTMLField(default=None, blank=True, null=True)
+    quote = HTMLField(default=None, blank=True, null=True)
 
     slug = AutoSlugField(
         populate_from='name',
