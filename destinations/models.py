@@ -175,6 +175,7 @@ class Destination(models.Model):
     )
 
     content = HTMLField(default=None, blank=True, null=True)
+    travelfact = HTMLField(default=None, blank=True, null=True)
 
     weather_content = HTMLField(default=None, blank=True, null=True)
 
@@ -346,6 +347,11 @@ class FaqDest(models.Model):
 
     title = models.CharField(max_length=255, default='')
     content = HTMLField()
+    active = models.BooleanField(default=True)
+    preTravel = models.BooleanField(default=False)
+    onTravel = models.BooleanField(default=False)
+    postTravel = models.BooleanField(default=False)
+
 
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
