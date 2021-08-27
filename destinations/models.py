@@ -409,7 +409,7 @@ class WhereToGo(models.Model):
 
 class ItemWhere(models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField(max_length=255, default='', blank=True)
+    content = HTMLField()
     WhereToGo = models.ForeignKey(
         WhereToGo,
         default=None,
