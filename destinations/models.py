@@ -185,6 +185,9 @@ class Destination(models.Model):
 
     content = HTMLField(default=None, blank=True, null=True)
     travelfact = HTMLField(default=None, blank=True, null=True)
+    travelAdvice = HTMLField(default=None, blank=True, null=True)
+    bestTime = HTMLField(default=None, blank=True, null=True)
+
 
     weather_content = HTMLField(default=None, blank=True, null=True)
 
