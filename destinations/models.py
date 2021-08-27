@@ -25,6 +25,15 @@ def path_and_rename_destination(instance, filename):
         filename = '{}.{}'.format(instance.slug, ext)
     return os.path.join(upload_to, filename)
 
+def path_and_rename_where(instance, filename):
+    upload_to = 'images/whereto/'
+    ext = filename.split('.')[-1]
+    if instance.pk:
+        filename = '{}.{}'.format(instance.slug, ext)
+    else:
+        filename = '{}.{}'.format(instance.slug, ext)
+    return os.path.join(upload_to, filename)
+
 def path_and_rename_continent(instance, filename):
     upload_to = 'images/continent/'
     ext = filename.split('.')[-1]
@@ -364,3 +373,58 @@ class FaqDest(models.Model):
 
     def __str__(self):
         return self.title
+
+class WhereToGo(models.Model):
+    title = models.CharField(max_length=255)
+    summary = models.TextField(max_length=150, default='', blank=True)
+    content = HTMLField()
+    slug = AutoSlugField(
+        populate_from='title',
+        unique_with=['title'],
+        always_update=True
+    )
+    Destination = models.ForeignKey(
+        Destination,
+        default=None,
+        related_name='where',
+        on_delete=models.CASCADE
+    )
+    image = models.FileField(upload_to='images/whereto/')
+    thumbnail = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(390, 230)],
+        format='JPEG',
+        options={'quality': 100}
+    )
+    active = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'wheretogo'
+        verbose_name_plural = 'Where to Go - Items'
+
+    def __str__(self):
+        return self.title
+
+class ItemWhere(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField(max_length=255, default='', blank=True)
+    WhereToGo = models.ForeignKey(
+        WhereToGo,
+        default=None,
+        related_name='items',
+        on_delete=models.CASCADE
+    )
+    active = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'itemwheretogo'
+
+    def __str__(self):
+        return self.title
+
+
+

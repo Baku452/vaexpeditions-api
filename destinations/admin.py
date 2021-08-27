@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Banner, Country, Destination, Reason, WeatherItems, FaqDest, DestinationImage, ContinentImage
+from .models import Banner, Country, Destination, Reason, WeatherItems, FaqDest, DestinationImage, ContinentImage, WhereToGo, ItemWhere
 from adminsortable2.admin import SortableAdminMixin
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 
@@ -15,8 +15,17 @@ class FAQsItemsAdmin(NestedStackedInline):
 class DestinationImages(NestedStackedInline):
     model = DestinationImage
     extra = 0
+
 class ContinentImages(NestedStackedInline):
     model = ContinentImage
+    extra = 0
+
+class WheretoGo(NestedStackedInline):
+    model = WhereToGo
+    extra = 0
+
+class ItemWheretoGo(NestedStackedInline):
+    model = ItemWhere
     extra = 0
 
 @admin.register(Banner)
@@ -44,7 +53,8 @@ class DestinationAdmin(SortableAdminMixin, NestedModelAdmin, admin.ModelAdmin):
     inlines = [
         WeatherItemsAdmin,
         FAQsItemsAdmin,
-        DestinationImages
+        DestinationImages,
+        WheretoGo
     ]
     save_as = True
 
@@ -57,4 +67,14 @@ class ReasonAdmin(admin.ModelAdmin):
     list_display = ('title', 'active')
     search_fields = ('title',)
     pass
+
+@admin.register(WhereToGo)
+class WhereToGoAdmin(admin.ModelAdmin):
+    list_display = ('title', 'active')
+    search_fields = ('title',)
+    inlines = [
+        ItemWheretoGo
+    ]
+    pass
+
 

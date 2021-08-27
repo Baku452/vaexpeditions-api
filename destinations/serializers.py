@@ -32,9 +32,11 @@ class DestImageSerializer(serializers.ModelSerializer):
 
 class PackageSerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(read_only=True)
+    type_name = serializers.StringRelatedField(many=True, source="package_type")
+    activity_name = serializers.StringRelatedField(source="activity")
     class Meta:
         model = Package
-        fields = ['id','title','slug','summary','thumbnail']
+        fields = ['id','title','days','slug','type_name','summary','thumbnail','activity_name']
 
 class ContinentImageSerializer(serializers.ModelSerializer):
     class Meta:
