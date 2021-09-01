@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from django.http import Http404
 
-from .models import Destination, Country, Banner
-from .serializers import CountrySerializer, BannerSerializer, DestinationSerializer
+from .models import Destination, Country, Banner, WhereToGo
+from .serializers import CountrySerializer, BannerSerializer, DestinationSerializer, CitySerializer, WhereSerializer
 
 
 def get_object(slug):
@@ -18,6 +18,12 @@ def get_object_country(slug):
     try:
         return Country.objects.get(slug=slug)
     except Country.DoesNotExist:
+        raise Http404
+
+def get_object_city(slug):
+    try:
+        return WhereToGo.objects.get(slug=slug)
+    except WhereToGo.DoesNotExist:
         raise Http404
 
 
@@ -60,4 +66,16 @@ class BannerListApi(APIView):
     def get(self, request):
         banners = Banner.objects.all().filter(active=True)
         serializer = BannerSerializer(banners, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
+
+class CitiesApi(APIView):
+    def get(self, request):
+        cities = WhereToGo.objects.all().filter(active=True)
+        serializer = CitySerializer(cities, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
+
+class CityRetrieveApi(APIView):
+    def get(self, request, slug):
+        city = get_object_city(slug)
+        serializer = CitySerializer(city)
         return Response(serializer.data, status=HTTP_200_OK)

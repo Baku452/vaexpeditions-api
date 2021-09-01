@@ -88,3 +88,10 @@ class BannerSerializer(serializers.ModelSerializer):
         model = Banner
         fields = '__all__'
 
+class CitySerializer(serializers.ModelSerializer):
+    thumbnail = serializers.ImageField(read_only=True)
+    items = ItemsSerializer(many=True, read_only=True)
+    slug_destination = serializers.CharField(source='Destination.slug')
+    class Meta:
+        model = WhereToGo
+        fields = '__all__'

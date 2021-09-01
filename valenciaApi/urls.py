@@ -32,6 +32,8 @@ from destinations.views import (
     DestinationRetrieveApi,
     CountryRetrieveApi,
     CountryListApi,
+    CityRetrieveApi,
+    CitiesApi
 )
 
 from blog.views import (
@@ -115,6 +117,8 @@ urlpatterns = [
     path('destinations/', DestinationListApi.as_view(), name='destination-list'),
     path('destinations/everyone/', EveryoneDestinationApi.as_view(), name='destination-everyone'),
     path('destination/<str:slug>', DestinationRetrieveApi.as_view(), name='destination-retrieve'),
+    path('city/<str:slug>', CityRetrieveApi.as_view(), name='city-retrieve'),
+    path('cities/', CitiesApi.as_view(), name='cities-all'),
 
     path('banners/', BannerListApi.as_view(), name='banners-list'),
 
