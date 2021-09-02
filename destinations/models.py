@@ -383,7 +383,7 @@ class WhereToGo(models.Model):
     content = HTMLField()
     slug = AutoSlugField(
         populate_from='title',
-        unique_with=['title'],
+        unique=True,
         always_update=True
     )
     Destination = models.ForeignKey(
