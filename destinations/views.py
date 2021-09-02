@@ -75,7 +75,7 @@ class CitiesApi(APIView):
         return Response(serializer.data, status=HTTP_200_OK)
 
 class CityRetrieveApi(APIView):
-    def get(self, request, slug):
+    def get(self, request, slug, slug_destination):
         city = get_object_city(slug)
         serializer = CitySerializer(city)
         return Response(serializer.data, status=HTTP_200_OK)
