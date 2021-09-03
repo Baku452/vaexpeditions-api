@@ -101,7 +101,13 @@ class ExperienceListApi(APIView):
 
 class PackageDestinationListApi(APIView):
     def get(self, request, slug):
-        packages = Package.objects.all().filter(destination__slug=slug)
+        packages = Package.objects.all().filter(destination__slug=slug, interest__title="Off the beaten path")
+        serializer = PackageSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PackageDestinationOfftheBeatenListApi(APIView):
+    def get(self, request, slug):
+        packages = Package.objects.all().filter(destination__slug=slug, )
         serializer = PackageSerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

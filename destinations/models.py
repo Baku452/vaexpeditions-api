@@ -43,6 +43,15 @@ def path_and_rename_continent(instance, filename):
         filename = '{}.{}'.format(instance.slug, ext)
     return os.path.join(upload_to, filename)
 
+def path_and_rename_itemWhere(instance, filename):
+    upload_to = 'images/whereto/items'
+    ext = filename.split('.')[-1]
+    if instance.pk:
+        filename = '{}.{}'.format(instance.title, ext)
+    else:
+        filename = '{}.{}'.format(instance.title, ext)
+    return os.path.join(upload_to, filename)
+
 MONTHS_CHOICES = (
     ("JAN", "January"),
     ("FEB", "February"),
@@ -413,6 +422,13 @@ class WhereToGo(models.Model):
 class ItemWhere(models.Model):
     title = models.CharField(max_length=255)
     content = HTMLField()
+    image = ProcessedImageField(
+        upload_to=path_and_rename_itemWhere,
+        processors=[ResizeToFill(390, 230)],
+        format='JPEG',
+        options={'quality': 100}
+    )
+
     WhereToGo = models.ForeignKey(
         WhereToGo,
         default=None,
