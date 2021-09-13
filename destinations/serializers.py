@@ -89,6 +89,12 @@ class CountrySerializer(serializers.ModelSerializer):
         model = Country
         fields = '__all__'
 
+class CountryHomeSerializer(serializers.ModelSerializer):
+    destinations = DestinationHomeSerializer(many=True, read_only=True)
+    class Meta:
+        model = Country
+        fields = ['id','name','slug','destinations']
+
 class BannerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Banner

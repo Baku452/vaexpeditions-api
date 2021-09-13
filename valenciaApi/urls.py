@@ -34,7 +34,8 @@ from destinations.views import (
     CountryRetrieveApi,
     CountryListApi,
     CityRetrieveApi,
-    CitiesApi
+    CitiesApi,
+    CountryHomeApi
 )
 
 from blog.views import (
@@ -114,6 +115,7 @@ urlpatterns = [
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path('countries/', CountryListApi.as_view(), name='countries-list'),
+    path('countries/home/', CountryHomeApi.as_view(), name='countries-list'),
     path('countries/<str:slug>', CountryRetrieveApi.as_view(), name='countries-retrieve'),
 
     path('destinations/', DestinationListApi.as_view(), name='destination-list'),
