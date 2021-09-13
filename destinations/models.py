@@ -3,6 +3,7 @@ from tinymce.models import HTMLField
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
 from autoslug import AutoSlugField
+from ckeditor_uploader.fields import RichTextUploadingField 
 import os
 
 
@@ -196,7 +197,7 @@ class Destination(models.Model):
     travelfact = HTMLField(default=None, blank=True, null=True)
     travelAdvice = HTMLField(default=None, blank=True, null=True)
     bestTime = HTMLField(default=None, blank=True, null=True)
-
+    imageTraveFact =  models.FileField(upload_to='images/countries/')
 
     weather_content = HTMLField(default=None, blank=True, null=True)
 
