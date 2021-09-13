@@ -4,7 +4,7 @@ from rest_framework.status import HTTP_200_OK
 from django.http import Http404
 
 from .models import Destination, Country, Banner, WhereToGo
-from .serializers import CountrySerializer, BannerSerializer, DestinationSerializer, CitySerializer, WhereSerializer
+from .serializers import CountrySerializer, BannerSerializer, DestinationSerializer, CitySerializer, WhereSerializer, DestinationHomeSerializer
 
 
 def get_object(slug):
@@ -59,6 +59,12 @@ class DestinationListApi(APIView):
     def get(self, request):
         countries = Country.objects.filter(active=True)
         serializer = CountrySerializer(countries, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
+
+class DestinationTitleBannerApi(APIView):
+    def get(self, request):
+        destinations = Destination.objects.filter(active=True)
+        serializer = DestinationHomeSerializer(destinations, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
 
 

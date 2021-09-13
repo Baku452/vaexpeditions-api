@@ -26,6 +26,7 @@ from drf_yasg2.views import get_schema_view
 from drf_yasg2 import openapi
 
 from destinations.views import (
+    DestinationTitleBannerApi,
     DestinationListApi,
     BannerListApi,
     EveryoneDestinationApi,
@@ -116,6 +117,7 @@ urlpatterns = [
     path('countries/<str:slug>', CountryRetrieveApi.as_view(), name='countries-retrieve'),
 
     path('destinations/', DestinationListApi.as_view(), name='destination-list'),
+    path('destinations/home/', DestinationTitleBannerApi.as_view(), name='destination-list'),
     path('destinations/everyone/', EveryoneDestinationApi.as_view(), name='destination-everyone'),
     path('destination/<str:slug>', DestinationRetrieveApi.as_view(), name='destination-retrieve'),
     path('city/<str:slug_destination>/<str:slug>', CityRetrieveApi.as_view(), name='city-retrieve'),
