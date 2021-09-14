@@ -195,7 +195,7 @@ class Destination(models.Model):
 
     content = HTMLField(default=None, blank=True, null=True)
     travelfact = HTMLField(default=None, blank=True, null=True)
-    travelAdvice = HTMLField(default=None, blank=True, null=True)
+    travelAdvice = RichTextUploadingField()
     bestTime = HTMLField(default=None, blank=True, null=True)
     imageTraveFact =  models.FileField(upload_to='images/countries/')
 
