@@ -160,7 +160,7 @@ class PackageOptionalFilter(filters.FilterSet):
 
 
 class PackageSearchApi(generics.ListAPIView):
-    queryset = Package.objects.all().filter(published=True).distinct()
+    queryset = Package.objects.all().filter(published=True).order_by('-rating').distinct()
     serializer_class = PackageSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = PackageFilter
