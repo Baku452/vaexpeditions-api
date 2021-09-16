@@ -37,7 +37,7 @@ class PackageSerializer(serializers.ModelSerializer):
     activity_name = serializers.StringRelatedField(source="activity")
     class Meta:
         model = Package
-        fields = ['id','title','slug','activity','days','published','destination','package_type','interest','destination_name','thumbnail','type_name','activity_name']
+        fields = ['id','title','slug','activity','days','published','destination','package_type','interest','destination_name','thumbnail','type_name','activity_name','summary']
 
 class PackageTitleSerializer(serializers.ModelSerializer):
     class Meta:
