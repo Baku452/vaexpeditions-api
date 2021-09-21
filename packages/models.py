@@ -167,40 +167,6 @@ class Interest(models.Model):
         return self.title
 
 
-class Experience(models.Model):
-    title = models.CharField(max_length=255)
-    content = models.TextField(default='')
-
-    package_type = models.ManyToManyField(PackageType)
-
-    image = models.FileField(upload_to='images/experience/')
-
-    thumbnail = ImageSpecField(
-        source='image',
-        processors=[ResizeToFill(340, 440)],
-        format='JPEG',
-        options={'quality': 98}
-    )
-
-    original = ImageSpecField(
-        source='image',
-        processors=[ResizeToFill(1600, 700)],
-        format='JPEG',
-        options={'quality': 98}
-    )
-
-    active = models.BooleanField(default=False)
-
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'experience'
-
-    def __str__(self):
-        return self.title
-
-
 class Notification(models.Model):
     title = models.CharField(max_length=255, default='')
 

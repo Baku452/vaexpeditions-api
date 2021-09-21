@@ -5,12 +5,11 @@ from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
 
-from .models import Destination, Package, PackageType, Experience, Interest, Notification
+from .models import Destination, Package, PackageType, Interest, Notification
 from .serializers import (
     PackageSerializer,
     PackageTypeSerializer,
     PackageDetailSerializer,
-    ExperienceSerializer,
     PackageDetailTypesSerializer,
     InterestSerializer,
     NotificationSerializer,
@@ -102,13 +101,6 @@ class PackageHomeListApi(APIView):
     def get(self, request):
         packages = Package.objects.all().filter(published=True, is_home=True)
         serializer = PackageSerializer(packages, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class ExperienceListApi(APIView):
-    def get(self, request):
-        experiences = Experience.objects.all().filter(active=True)
-        serializer = ExperienceSerializer(experiences, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

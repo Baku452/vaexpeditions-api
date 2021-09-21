@@ -1,4 +1,4 @@
-from .models import Package, PackageType, PackageImage, Experience, Interest, Notification
+from .models import Package, PackageType, PackageImage, Interest, Notification
 from specialists.models import Specialist
 from rest_framework import serializers
 from itineraries.serializers import (
@@ -20,15 +20,6 @@ class InterestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interest
         fields = '__all__'
-
-
-class ExperienceSerializer(serializers.ModelSerializer):
-    thumbnail = serializers.ImageField(read_only=True)
-
-    class Meta:
-        model = Experience
-        fields = '__all__'
-
 
 class PackageSerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(read_only=True)

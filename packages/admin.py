@@ -1,6 +1,6 @@
 from django.contrib import admin
 from search_admin_autocomplete.admin import SearchAutoCompleteAdmin
-from .models import Package, PackageImage, PackageType, Month, Experience, Interest, Notification
+from .models import Package, PackageImage, PackageType, Month, Interest, Notification
 from itineraries.models import (
     Itinerary,
     Faq,
@@ -68,11 +68,6 @@ class PackageTypeAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 @admin.register(Month)
 class MonthAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Experience)
-class ExperienceAdmin(admin.ModelAdmin):
     pass
 
 

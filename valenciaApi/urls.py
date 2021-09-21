@@ -54,7 +54,6 @@ from packages.views import (
     PackageListApi,
     PackageTitleApi,
     PackageOptionalTours,
-    ExperienceListApi,
     InterestListApi,
     NotificationListApi,
     NotificationRetrieveApi,
@@ -151,9 +150,6 @@ urlpatterns = [
     path('packages/optional/', PackageOptionalSearchApi.as_view(), name='packages-optional'),
     path('packages/off-the-beaten/<str:slug>', PackageDestinationListApi.as_view(), name='packages-optional'),
     path('packages/<str:slug>', PackageDestinationListApi.as_view(), name='packages-list-slug'),
-
-
-    path('experiences/list/', ExperienceListApi.as_view(), name='experiences-list'),
 
     path('package/<str:slug>', PackageRetrieveApi.as_view(), name='packages-retrieve'),
     path('itineraries/<int:pk>', ItineraryRetrieveApi.as_view(), name='itineraries-retrieve'),
