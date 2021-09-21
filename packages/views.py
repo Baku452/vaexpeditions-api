@@ -14,8 +14,9 @@ from .serializers import (
     PackageDetailTypesSerializer,
     InterestSerializer,
     NotificationSerializer,
-    PackageTitleSerializer
-
+    PackageTitleSerializer,
+    PackageTypeNavSerializer,
+    PackageTypeHomeSerializer,
 )
 
 from rest_framework import generics
@@ -68,6 +69,18 @@ class PackageTypeListApi(APIView):
     def get(self, request):
         packages = PackageType.objects.all().filter(active=True)
         serializer = PackageTypeSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PackageTypeNavApi(APIView):
+    def get(self, request):
+        packages = PackageType.objects.all().filter(active=True)
+        serializer = PackageTypeNavSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PackageTypeHomeApi(APIView):
+    def get(self, request):
+        packages = PackageType.objects.all().filter(active=True)
+        serializer = PackageTypeHomeSerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

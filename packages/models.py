@@ -124,6 +124,7 @@ class Month(models.Model):
 
 class PackageType(models.Model):
     title = models.CharField(max_length=255)
+    content = models.TextField(default='')
     active = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
     svg = models.FileField(
@@ -132,14 +133,13 @@ class PackageType(models.Model):
         validators=[FileExtensionValidator(['svg'])]
     )
 
-    thumbnail = ProcessedImageField(
-        upload_to='images/package-type/',
-        processors=[ResizeToFill(350, 300)],
+    image = models.FileField(upload_to='images/package_type/',blank=True, null=True)
+    thumbnail = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(340, 440)],
         format='JPEG',
-        options={'quality': 100},
-        blank=True
+        options={'quality': 98}
     )
-
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -155,9 +155,7 @@ class Interest(models.Model):
     title = models.CharField(max_length=255)
     active = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
-
-    package_types = models.ManyToManyField(PackageType)
-
+    # package_types = models.ManyToManyField(PackageType)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

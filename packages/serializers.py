@@ -50,6 +50,19 @@ class PackageTypeSerializer(serializers.ModelSerializer):
         model = PackageType
         fields = '__all__'
 
+class PackageTypeHomeSerializer(serializers.ModelSerializer):
+    thumbnail = serializers.ImageField(read_only=True)
+
+    class Meta:
+        model = PackageType
+        fields = ["id", "thumbnail", "title", "content", "svg"]
+
+
+class PackageTypeNavSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PackageType
+        fields = ["id", "title", "svg"]
+
 
 class PackageImageSerializer(serializers.ModelSerializer):
 
