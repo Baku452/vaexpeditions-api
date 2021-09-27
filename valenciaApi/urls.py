@@ -62,6 +62,7 @@ from packages.views import (
     PackageDestinationOfftheBeatenListApi,
     PackageTypeHomeApi,
     PackageTypeNavApi,
+    PackageFeaturedDestinationListApi,
 )
 
 from itineraries.views import (
@@ -144,6 +145,7 @@ urlpatterns = [
     path('newsletter/', NewsletterCreateApi.as_view(), name='newsletter-create'),
 
     path('packages/home/', PackageHomeListApi.as_view(), name='packages-search'),
+    path('packages/featured/<str:slug>', PackageFeaturedDestinationListApi.as_view(), name='packages-featured-destination'),
     path('packages/', PackageSearchApi.as_view(), name='packages-search'),
     path('packages/titles/', PackageTitleApi.as_view(), name='packages-titles'),
     path('packages/list/', PackageListApi.as_view(), name='packages-list'),

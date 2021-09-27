@@ -53,6 +53,24 @@ def path_and_rename_itemWhere(instance, filename):
         filename = '{}.{}'.format(instance.title, ext)
     return os.path.join(upload_to, filename)
 
+def path_and_rename_travelAdvice(instance, filename):
+    upload_to = 'images/destination/traveladvice/'
+    ext = filename.split('.')[-1]
+    if instance.pk:
+        filename = '{}.{}'.format(instance.title, ext)
+    else:
+        filename = '{}.{}'.format(instance.title, ext)
+    return os.path.join(upload_to, filename)
+
+def path_and_rename_subDestination(instance, filename):
+    upload_to = 'images/destination/sub-destination/'
+    ext = filename.split('.')[-1]
+    if instance.pk:
+        filename = '{}.{}'.format(instance.title, ext)
+    else:
+        filename = '{}.{}'.format(instance.title, ext)
+    return os.path.join(upload_to, filename)
+
 MONTHS_CHOICES = (
     ("JAN", "January"),
     ("FEB", "February"),
@@ -447,4 +465,28 @@ class ItemWhere(models.Model):
         return self.title
 
 
+class TravelAdvice(models.Model):
+    title = models.CharField(max_length=255)
+    content = HTMLField()
+    image = ProcessedImageField(
+        upload_to=path_and_rename_travelAdvice,
+        processors=[ResizeToFill(350, 430)],
+        format='JPEG',
+        options={'quality': 100}
+    )
 
+    destination = models.ForeignKey(
+        Destination,
+        default=None,
+        related_name='advice',
+        on_delete=models.CASCADE
+    )
+    active = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'traveladvice'
+
+    def __str__(self):
+        return self.title

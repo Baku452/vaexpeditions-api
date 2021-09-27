@@ -1,4 +1,4 @@
-from .models import Country, Banner, Destination, Reason, WeatherItems, FaqDest, DestinationImage, ContinentImage, WhereToGo, ItemWhere
+from .models import Country, Banner, Destination, Reason, WeatherItems, FaqDest, DestinationImage, ContinentImage, WhereToGo, ItemWhere, TravelAdvice
 from packages.models import Package
 from rest_framework import serializers
 from packages.serializers import PackageTypeSerializer, PackageSerializer
@@ -24,6 +24,12 @@ class FAQsSerializer(serializers.ModelSerializer):
     class Meta:
         model = FaqDest
         fields = '__all__'
+
+class TravelAdviceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TravelAdvice
+        fields = '__all__'
+
 class ItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemWhere
@@ -59,6 +65,7 @@ class DestinationSerializer(serializers.ModelSerializer):
     reasons = ReasonSerializer(many=True, read_only=True)
     packages = PackageSerializer(many=True, read_only=True)
     faqs = FAQsSerializer(many=True, read_only=True)
+    advice = TravelAdviceSerializer(many=True, read_only=True)
     images = DestImageSerializer(many=True, read_only=True)
     weathers = WeatherItemsSerializer(many=True, read_only=True)
     where = WhereSerializer(many=True, read_only=True)

@@ -48,7 +48,7 @@ class PackageImageAdmin(NestedStackedInline):
 
 @admin.register(Package)
 class PackageAdmin(ClonableModelAdmin,NestedModelAdmin, admin.ModelAdmin):
-    list_display = ('title', 'days','destination', 'published', 'optional')
+    list_display = ('title', 'days','destination', 'published', 'optional','featured')
     search_fields = ('title', 'destination__title', 'optional')
     inlines = [
         PackageImageAdmin,

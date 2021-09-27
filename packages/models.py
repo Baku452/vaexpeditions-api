@@ -5,7 +5,7 @@ from django.utils.html import mark_safe
 from imagekit.models import ImageSpecField, ProcessedImageField
 from autoslug import AutoSlugField
 from imagekit.processors import ResizeToFill
-from destinations.models import Destination, Country
+from destinations.models import Destination, Country, WhereToGo
 from django.core.validators import FileExtensionValidator
 from smart_selects.db_fields import ChainedForeignKey
 import os
@@ -213,7 +213,7 @@ class Package(models.Model):
 
     package_type = models.ManyToManyField(PackageType)
 
-    
+    where_to_go = models.ManyToManyField(WhereToGo)
 
     interest = models.ManyToManyField(Interest)
 
@@ -278,11 +278,10 @@ class Package(models.Model):
 
     published = models.BooleanField(default=False)
     is_home = models.BooleanField(default=False)
-    atypical = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False)
     promo = models.BooleanField(default=False)
     luxury = models.BooleanField(default=False)
     optional = models.BooleanField(default=False)
-    show_specialist = models.BooleanField(default=False)
     recommendations = HTMLField(blank=True)
 
     rating = models.IntegerField(blank=True, default=0)
