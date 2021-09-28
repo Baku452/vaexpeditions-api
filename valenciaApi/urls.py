@@ -35,7 +35,7 @@ from destinations.views import (
     CountryListApi,
     CityRetrieveApi,
     CitiesApi,
-    CountryHomeApi
+    CountryHomeApi,
 )
 
 from blog.views import (
@@ -63,6 +63,7 @@ from packages.views import (
     PackageTypeHomeApi,
     PackageTypeNavApi,
     PackageFeaturedDestinationListApi,
+    PackageDestinationSearchApi,
 )
 
 from itineraries.views import (
@@ -151,7 +152,7 @@ urlpatterns = [
     path('packages/list/', PackageListApi.as_view(), name='packages-list'),
     path('packages/optional/', PackageOptionalSearchApi.as_view(), name='packages-optional'),
     path('packages/off-the-beaten/<str:slug>', PackageDestinationListApi.as_view(), name='packages-optional'),
-    path('packages/<str:slug>', PackageDestinationListApi.as_view(), name='packages-list-slug'),
+    path('packages/<str:slug>/', PackageDestinationListApi.as_view(), name='packages-list-slug'),
 
     path('package/<str:slug>', PackageRetrieveApi.as_view(), name='packages-retrieve'),
     path('itineraries/<int:pk>', ItineraryRetrieveApi.as_view(), name='itineraries-retrieve'),

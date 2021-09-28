@@ -109,13 +109,6 @@ class PackageFeaturedDestinationListApi(APIView):
         serializer = PackageSerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-class PackageDestinationListApi(APIView):
-    def get(self, request, slug):
-        packages = Package.objects.all().filter(published=True,destination__slug=slug)
-        serializer = PackageSerializer(packages, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
 class PackageDestinationOfftheBeatenListApi(APIView):
     def get(self, request, slug):
         packages = Package.objects.all().filter(destination__slug=slug, )
@@ -162,6 +155,20 @@ class PackageFilter(filters.FilterSet):
         fields = ['slug', 'destination', 'start', 'end', 'activity', 'types', 'interests', 'months']
 
 
+class PackageDestinationFilter(filters.FilterSet):
+
+    where_to_go = NumberInFilter(field_name="where_to_go", lookup_expr="in")
+    start = filters.NumberFilter(field_name ="days", lookup_expr='gte')
+    end = filters.NumberFilter(field_name="days", lookup_expr='lte')
+    activity = NumberInFilter(field_name="activity", lookup_expr="in")
+    types = NumberInFilter(field_name='package_type__id', lookup_expr="in")
+    interests = NumberInFilter(field_name='interest__id', lookup_expr="in")
+    months = CharInFilter(field_name='month__name', lookup_expr="in")
+
+    class Meta:
+        model = Package
+        fields = ['where_to_go', 'start', 'end', 'activity', 'types', 'interests', 'months']
+
 class PackageOptionalFilter(filters.FilterSet):
     destination = NumberInFilter(field_name="destination", lookup_expr="in")
 
@@ -176,6 +183,22 @@ class PackageSearchApi(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_class = PackageFilter
 
+
+class PackageDestinationSearchApi(generics.ListAPIView):
+    queryset = Package.objects.all().filter(published=True).order_by('-rating').distinct()
+    serializer_class = PackageSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PackageDestinationFilter
+
+
+
+class PackageDestinationListApi(generics.ListAPIView):
+    serializer_class = PackageSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PackageDestinationFilter
+    def get_queryset(self):
+        return Package.objects.all().filter(published=True,destination__slug=self.kwargs['slug'])
+        # return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PackageOptionalSearchApi(generics.ListAPIView):
     queryset = Package.objects.all().filter(optional=True).distinct()
