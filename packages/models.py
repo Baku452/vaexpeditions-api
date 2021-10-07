@@ -314,7 +314,7 @@ class PackageImage(models.Model):
 
     image = ProcessedImageField(
         upload_to=path_and_rename_package,
-        processors=[ResizeToFill(1600, 700)],
+        processors=[ResizeToFill(1600, 600)],
         format='JPEG',
         options={'quality': 100}
     )
