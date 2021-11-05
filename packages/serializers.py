@@ -7,7 +7,6 @@ from itineraries.serializers import (
     DatesAndPricesSerializer,
 )
 
-
 class NotificationSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -77,6 +76,8 @@ class PackageDetailSerializer(serializers.ModelSerializer):
     related_packages = PackageSerializer(many=True, read_only=True)
     faqs = FaqSerializer(many=True, read_only=True)
     dates_prices = DatesAndPricesSerializer(many=True, read_only=True)
+    destination_name = serializers.StringRelatedField(source="destination")
+    type_name = serializers.StringRelatedField(many=True, source="package_type")
 
     class Meta:
         model = Package
