@@ -24,10 +24,11 @@ class PackageSerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(read_only=True)
     type_name = serializers.StringRelatedField(many=True, source="package_type")
     destination_name = serializers.StringRelatedField(source="destination")
+    country_name = serializers.StringRelatedField(source="country")
     activity_name = serializers.StringRelatedField(source="activity")
     class Meta:
         model = Package
-        fields = ['id','title','slug','activity','days','published','destination','package_type','interest','destination_name','thumbnail','type_name','activity_name','summary', 'where_to_go']
+        fields = ['id','title','slug','activity','days','published','destination','package_type','interest','destination_name','thumbnail','country','country_name','type_name','activity_name','summary', 'where_to_go']
 
 class PackageTitleSerializer(serializers.ModelSerializer):
     class Meta:
