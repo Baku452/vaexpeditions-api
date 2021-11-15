@@ -42,7 +42,8 @@ from blog.views import (
     BlogTypeListApi,
     BlogRetrieveApi,
     BlogSearchApi,
-    BlogListApi
+    BlogListApi,
+    BlogPopular,
 )
 
 from packages.views import (
@@ -67,14 +68,9 @@ from packages.views import (
     PackageDestinationSearchApi,
 )
 
-from itineraries.views import (
-    ItineraryRetrieveApi
-)
+from itineraries.views import ItineraryRetrieveApi
 
-from specialists.views import (
-    ContactCreateApi,
-    NewsletterCreateApi
-)
+from specialists.views import ContactCreateApi, NewsletterCreateApi
 
 from tailors.views import (
     TailorListApi,
@@ -87,90 +83,130 @@ from history.views import (
     HistoryApi,
 )
 
-from popUp.views import (
-    PopUpListApi
-)
+from popUp.views import PopUpListApi
 
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Valencia Travel API",
-      default_version='v1',
-      description="Api valencia travel",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Valencia Travel API",
+        default_version="v1",
+        description="Api valencia travel",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
-admin.site.site_header = 'Valencia Travel'
-admin.site.site_title = 'Valencia Travel'
+admin.site.site_header = "Valencia Travel"
+admin.site.site_title = "Valencia Travel"
 
 urlpatterns = [
-
-    path('admin/', admin.site.urls),
-    path('tinymce/', include('tinymce.urls')),
-    url(r'^chaining/', include('smart_selects.urls')),
-
-    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
-    path('countries/', CountryListApi.as_view(), name='countries-list'),
-    path('countries/home/', CountryHomeApi.as_view(), name='countries-list'),
-    path('countries/<str:slug>', CountryRetrieveApi.as_view(), name='countries-retrieve'),
-
-    path('destinations/', DestinationListApi.as_view(), name='destination-list'),
-    path('destinations/home/', DestinationTitleBannerApi.as_view(), name='destination-list'),
-    path('destinations/everyone/', EveryoneDestinationApi.as_view(), name='destination-everyone'),
-    path('destination/<str:slug>', DestinationRetrieveApi.as_view(), name='destination-retrieve'),
-    path('city/<str:slug_destination>/<str:slug>', CityRetrieveApi.as_view(), name='city-retrieve'),
-    path('cities/', CitiesApi.as_view(), name='cities-all'),
-
-    path('banners/', BannerListApi.as_view(), name='banners-list'),
-
-    path('notification/', NotificationListApi.as_view(), name='notification-list'),
-    path('notification/<str:slug>', NotificationRetrieveApi.as_view(), name='notification-retrieve'),
-
-
-    path('packagestype/', PackageTypeListApi.as_view(), name='packages-type-list'),
+    path("admin/", admin.site.urls),
+    path("tinymce/", include("tinymce.urls")),
+    url(r"^chaining/", include("smart_selects.urls")),
+    url(
+        r"^swagger(?P<format>\.json|\.yaml)$",
+        schema_view.without_ui(cache_timeout=0),
+        name="schema-json",
+    ),
+    url(
+        r"^swagger/$",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    url(
+        r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
+    ),
+    path("countries/", CountryListApi.as_view(), name="countries-list"),
+    path("countries/home/", CountryHomeApi.as_view(), name="countries-list"),
+    path(
+        "countries/<str:slug>", CountryRetrieveApi.as_view(), name="countries-retrieve"
+    ),
+    path("destinations/", DestinationListApi.as_view(), name="destination-list"),
+    path(
+        "destinations/home/",
+        DestinationTitleBannerApi.as_view(),
+        name="destination-list",
+    ),
+    path(
+        "destinations/everyone/",
+        EveryoneDestinationApi.as_view(),
+        name="destination-everyone",
+    ),
+    path(
+        "destination/<str:slug>",
+        DestinationRetrieveApi.as_view(),
+        name="destination-retrieve",
+    ),
+    path(
+        "city/<str:slug_destination>/<str:slug>",
+        CityRetrieveApi.as_view(),
+        name="city-retrieve",
+    ),
+    path("cities/", CitiesApi.as_view(), name="cities-all"),
+    path("banners/", BannerListApi.as_view(), name="banners-list"),
+    path("notification/", NotificationListApi.as_view(), name="notification-list"),
+    path(
+        "notification/<str:slug>",
+        NotificationRetrieveApi.as_view(),
+        name="notification-retrieve",
+    ),
+    path("packagestype/", PackageTypeListApi.as_view(), name="packages-type-list"),
     path("packagestype/home/", PackageTypeHomeApi.as_view(), name="packages-type-home"),
     path("packagestype/nav/", PackageTypeNavApi.as_view(), name="packages-type-list"),
-    path('packagestype/<int:pk>', PackageTypeDetailApi.as_view(), name='packages-type-list'),
-
-
-    path('interests/', InterestListApi.as_view(), name='interest-list'),
-
-    path('contact_us/', ContactCreateApi.as_view(), name='contact_us-create'),
-    path('newsletter/', NewsletterCreateApi.as_view(), name='newsletter-create'),
-
-    path('packages/home/', PackageHomeListApi.as_view(), name='packages-search'),
-    path('packages/featured/<str:slug>', PackageFeaturedDestinationListApi.as_view(), name='packages-featured-destination'),
-    path('packages/<str:slug_destination>/<str:slug>', PackageCitiesListApi.as_view(), name='packages-Cities'),
-    path('packages/', PackageSearchApi.as_view(), name='packages-search'),
-    path('packages/titles/', PackageTitleApi.as_view(), name='packages-titles'),
-    path('packages/list/', PackageListApi.as_view(), name='packages-list'),
-    path('packages/optional/', PackageOptionalSearchApi.as_view(), name='packages-optional'),
-    path('packages/off-the-beaten/<str:slug>', PackageDestinationListApi.as_view(), name='packages-optional'),
-    path('packages/<str:slug>/', PackageDestinationListApi.as_view(), name='packages-list-slug'),
-
-    path('package/<str:slug>', PackageRetrieveApi.as_view(), name='packages-retrieve'),
-    path('itineraries/<int:pk>', ItineraryRetrieveApi.as_view(), name='itineraries-retrieve'),
-
-    path('tailors/list/', TailorListApi.as_view(), name='tailors-retrieve'),
-    path('ourpurpose/list/', OurPurposeListApi.as_view(), name='ourpurpose-retrieve'),
-    
-    path('history/', HistoryApi.as_view(), name='history-retrieve'),
-    path('popup/', PopUpListApi.as_view(), name='popup-retrieve'),
-
-    path('blog/<str:slug>', BlogRetrieveApi.as_view(), name='blog-retrieve'),
-    path('blogtypes/', BlogTypeListApi.as_view(), name='blog-types'),
-    path('blog/', BlogSearchApi.as_view(), name='blog-search'),
-    path('blog/list/', BlogListApi.as_view(), name='blog-list'),
-
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-
-
+    path(
+        "packagestype/<int:pk>",
+        PackageTypeDetailApi.as_view(),
+        name="packages-type-list",
+    ),
+    path("interests/", InterestListApi.as_view(), name="interest-list"),
+    path("contact_us/", ContactCreateApi.as_view(), name="contact_us-create"),
+    path("newsletter/", NewsletterCreateApi.as_view(), name="newsletter-create"),
+    path("packages/home/", PackageHomeListApi.as_view(), name="packages-search"),
+    path(
+        "packages/featured/<str:slug>",
+        PackageFeaturedDestinationListApi.as_view(),
+        name="packages-featured-destination",
+    ),
+    path(
+        "packages/<str:slug_destination>/<str:slug>",
+        PackageCitiesListApi.as_view(),
+        name="packages-Cities",
+    ),
+    path("packages/", PackageSearchApi.as_view(), name="packages-search"),
+    path("packages/titles/", PackageTitleApi.as_view(), name="packages-titles"),
+    path("packages/list/", PackageListApi.as_view(), name="packages-list"),
+    path(
+        "packages/optional/",
+        PackageOptionalSearchApi.as_view(),
+        name="packages-optional",
+    ),
+    path(
+        "packages/off-the-beaten/<str:slug>",
+        PackageDestinationListApi.as_view(),
+        name="packages-optional",
+    ),
+    path(
+        "packages/<str:slug>/",
+        PackageDestinationListApi.as_view(),
+        name="packages-list-slug",
+    ),
+    path("package/<str:slug>", PackageRetrieveApi.as_view(), name="packages-retrieve"),
+    path(
+        "itineraries/<int:pk>",
+        ItineraryRetrieveApi.as_view(),
+        name="itineraries-retrieve",
+    ),
+    path("tailors/list/", TailorListApi.as_view(), name="tailors-retrieve"),
+    path("ourpurpose/list/", OurPurposeListApi.as_view(), name="ourpurpose-retrieve"),
+    path("history/", HistoryApi.as_view(), name="history-retrieve"),
+    path("popup/", PopUpListApi.as_view(), name="popup-retrieve"),
+    path("blog/<str:slug>", BlogRetrieveApi.as_view(), name="blog-retrieve"),
+    path("blogtypes/", BlogTypeListApi.as_view(), name="blog-types"),
+    path("blog/", BlogSearchApi.as_view(), name="blog-search"),
+    path("blog/popular/", BlogPopular.as_view(), name="blog-search"),
+    path("blog/list/", BlogListApi.as_view(), name="blog-list"),
+    url(r"^ckeditor/", include("ckeditor_uploader.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

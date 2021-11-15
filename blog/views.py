@@ -66,3 +66,13 @@ class BlogListApi(generics.ListAPIView):
         Blog.objects.all().filter(published=True).order_by("-created").distinct()[:4]
     )
     serializer_class = BlogSerializer
+
+
+class BlogPopular(generics.ListAPIView):
+    queryset = (
+        Blog.objects.all()
+        .filter(published=True, popular=True)
+        .order_by("-created")
+        .distinct()
+    )
+    serializer_class = BlogDetailSerializer

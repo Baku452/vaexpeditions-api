@@ -9,7 +9,14 @@ from modelclone import ClonableModelAdmin
 @admin.register(Blog)
 class BlogAdmin(ClonableModelAdmin):
     # exclude = ('author',)
-    list_display = ("title", "published", "destination", "interest", "blog_type")
+    list_display = (
+        "title",
+        "published",
+        "popular",
+        "destination",
+        "interest",
+        "blog_type",
+    )
     search_fields = ("title", "destination__title")
 
     def save_model(self, request, obj, form, change):
