@@ -94,7 +94,7 @@ class Blog(models.Model):
     )
     thumbnail_cat = ImageSpecField(
         source="thumbnail",
-        processors=[ResizeToFill(385, 217)],
+        processors=[ResizeToFill(500, 370)],
         format="JPEG",
         options={"quality": 95},
     )
