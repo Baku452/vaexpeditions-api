@@ -105,6 +105,7 @@ class Blog(models.Model):
         options={"quality": 90},
         blank=True,
     )
+    popular = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
