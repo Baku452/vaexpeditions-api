@@ -71,6 +71,7 @@ class DestinationSerializer(serializers.ModelSerializer):
     where = WhereSerializer(many=True, read_only=True)
     thumbnail = serializers.ImageField(read_only=True)
     original = serializers.ImageField(read_only=True)
+    destination_name = serializers.StringRelatedField(source="destination")
 
     class Meta:
         model = Destination

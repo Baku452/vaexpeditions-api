@@ -109,6 +109,12 @@ class PackageFeaturedDestinationListApi(APIView):
         serializer = PackageSerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class PackageCitiesListApi(APIView):
+    def get(self, request, slug, slug_destination):
+        packages = Package.objects.all().filter(published=True,destination__slug=slug_destination,where_to_go__slug=slug)[:6]
+        serializer = PackageSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class PackageDestinationOfftheBeatenListApi(APIView):
     def get(self, request, slug):
         packages = Package.objects.all().filter(destination__slug=slug, )
