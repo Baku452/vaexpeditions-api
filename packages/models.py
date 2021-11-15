@@ -155,7 +155,6 @@ class Interest(models.Model):
     title = models.CharField(max_length=255)
     active = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
-    # package_types = models.ManyToManyField(PackageType)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
