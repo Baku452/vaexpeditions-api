@@ -87,16 +87,10 @@ class Blog(models.Model):
     )
     thumbnail = ProcessedImageField(
         upload_to=path_and_rename,
-        processors=[ResizeToFill(800, 450)],
-        format="JPEG",
-        options={"quality": 95},
-        blank=True,
-    )
-    thumbnail_cat = ImageSpecField(
-        source="thumbnail",
         processors=[ResizeToFill(500, 370)],
         format="JPEG",
         options={"quality": 95},
+        blank=True,
     )
     banner = ProcessedImageField(
         upload_to=path_and_rename,

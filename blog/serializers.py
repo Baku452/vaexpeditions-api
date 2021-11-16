@@ -20,7 +20,7 @@ class BlogDetailSerializer(serializers.ModelSerializer):
     created = serializers.DateTimeField(
         format="%d-%m-%Y", required=False, read_only=True
     )
-    thumbnail_cat = serializers.ImageField(read_only=True)
+    thumbnail = serializers.ImageField(read_only=True)
 
     def full_name(self):
         return self.first_name + " " + self.last_name
