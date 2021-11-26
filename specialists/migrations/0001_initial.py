@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import imagekit.models.fields
+import tinymce.models
 
 
 class Migration(migrations.Migration):

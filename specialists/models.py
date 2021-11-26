@@ -1,10 +1,12 @@
 from django.db import models
+from tinymce.models import HTMLField
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
 
 class Specialist(models.Model):
     fullname = models.CharField(max_length=255, default='')
+    content = HTMLField()
     email = models.EmailField(max_length=255, default='')
     thumbnail = ProcessedImageField(
         upload_to='specialist-thumbnail',
@@ -14,7 +16,7 @@ class Specialist(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    
     class Meta:
         db_table = 'specialist'
 
