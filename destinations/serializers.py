@@ -126,6 +126,7 @@ class DestinationSerializer(serializers.ModelSerializer):
 class DestinationHomeSerializer(serializers.ModelSerializer):
     where = WhereHomeSerializer(many=True, read_only=True)
     thumbnail = serializers.ImageField(read_only=True)
+    image_home = serializers.ImageField(read_only=True)
 
     class Meta:
         model = Destination
@@ -138,6 +139,7 @@ class DestinationHomeSerializer(serializers.ModelSerializer):
             "thumbnail",
             "slug",
             "where",
+            "image_home",
         ]
 
 
