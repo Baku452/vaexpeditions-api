@@ -72,7 +72,7 @@ class WhereSerializer(serializers.ModelSerializer):
 class WhereHomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = WhereToGo
-        fields = ["id", "title"]
+        fields = ["id", "title", "slug"]
 
 
 class DestImageSerializer(serializers.ModelSerializer):
