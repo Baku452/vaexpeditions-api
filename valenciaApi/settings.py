@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,85 +35,85 @@ ALLOWED_HOSTS = ["*"]
 
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
-ROOT_URLCONF = 'valenciaApi.urls'
+ROOT_URLCONF = "valenciaApi.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'django_filters',
-    'corsheaders',
-    'adminsortable2',
-    'imagekit',
-    'drf_yasg2',
-    'tinymce',
-    'packages',
-    'smart_selects',
-    'specialists',
-    'itineraries',
-    'destinations',
-    'search_admin_autocomplete',
-    'tailors',
-    'modelclone',
-    'nested_inline',
-    'ourPurpose',
-    'history',
-    'popUp',
-    'blog',
-    'ckeditor',
-    'ckeditor_uploader',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "django_filters",
+    "corsheaders",
+    "adminsortable2",
+    "imagekit",
+    "drf_yasg2",
+    "tinymce",
+    "packages",
+    "smart_selects",
+    "specialists",
+    "itineraries",
+    "destinations",
+    "search_admin_autocomplete",
+    "tailors",
+    "modelclone",
+    "nested_inline",
+    "ourPurpose",
+    "history",
+    "popUp",
+    "blog",
+    "ckeditor",
+    "ckeditor_uploader",
+    "ourteam",
 ]
-CKEDITOR_UPLOAD_PATH = 'uploads'
+CKEDITOR_UPLOAD_PATH = "uploads"
 CKEDITOR_CONFIGS = {
-       'default': {
-           'toolbar': 'full',
-           'height': 800,
-           'width': 1200,
-           'extraPlugins': 'liststyle',
-       },
-   }
+    "default": {
+        "toolbar": "full",
+        "height": 800,
+        "width": 1200,
+        "extraPlugins": "liststyle",
+    },
+}
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 100,
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-WSGI_APPLICATION = 'valenciaApi.wsgi.application'
+WSGI_APPLICATION = "valenciaApi.wsgi.application"
 
 
 # Database
@@ -120,20 +121,22 @@ WSGI_APPLICATION = 'valenciaApi.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DJANGO_DB_NAME"),
-        'USER': os.getenv("DJANGO_DB_USER"),
-        'PASSWORD': os.getenv("DJANGO_DB_PASSWORD"),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DJANGO_DB_NAME"),
+        "USER": os.getenv("DJANGO_DB_USER"),
+        "PASSWORD": os.getenv("DJANGO_DB_PASSWORD"),
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
 
 # Twilio SendGrid
-EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
-SENDGRID_API_KEY = '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'
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = (
+    "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"
+)
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 # Password validation
@@ -141,16 +144,16 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -158,9 +161,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = "en"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -174,22 +177,22 @@ USE_TZ = True
 
 
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "link lists autolink",
-    'cleanup_on_startup': True,
-    'custom_undo_redo_levels': 120,
+    "plugins": "link lists autolink",
+    "cleanup_on_startup": True,
+    "custom_undo_redo_levels": 120,
     "toolbar": "undo redo | bold italic underline strikethrough | alignleft "
     "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist "
     "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
     "a11ycheck ltr rtl | showcomments addcomment code",
 }
 
-STATIC_URL = '/static_root/'
+STATIC_URL = "/static_root/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 USE_DJANGO_JQUERY = True
-FILE_UPLOAD_PERMISSIONS=0o640
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+FILE_UPLOAD_PERMISSIONS = 0o640
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"

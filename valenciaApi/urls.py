@@ -82,6 +82,7 @@ from ourPurpose.views import (
 from history.views import (
     HistoryApi,
 )
+from ourteam.views import CollaboratorsListApi, CollaboratorRetrieveApi
 
 from popUp.views import PopUpListApi
 
@@ -208,5 +209,11 @@ urlpatterns = [
     path("blog/", BlogSearchApi.as_view(), name="blog-search"),
     path("blog/popular/", BlogPopular.as_view(), name="blog-search"),
     path("blog/list/", BlogListApi.as_view(), name="blog-list"),
+    path("collaborators/", CollaboratorsListApi.as_view(), name="collaborators-list"),
+    path(
+        "collaborators/<str:slug>",
+        CollaboratorRetrieveApi.as_view(),
+        name="collaborators-retrievet",
+    ),
     url(r"^ckeditor/", include("ckeditor_uploader.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
