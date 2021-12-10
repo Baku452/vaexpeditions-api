@@ -100,8 +100,8 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-admin.site.site_header = "Valencia Travel"
-admin.site.site_title = "Valencia Travel"
+admin.site.site_header = "Va Expeditions"
+admin.site.site_title = "Va Expeditions"
 
 urlpatterns = [
     path("admin/", admin.site.urls),

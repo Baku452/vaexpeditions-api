@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -114,7 +114,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 WSGI_APPLICATION = "valenciaApi.wsgi.application"
-
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -172,6 +172,7 @@ USE_L10N = True
 USE_TZ = True
 
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -194,5 +195,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 USE_DJANGO_JQUERY = True
-FILE_UPLOAD_PERMISSIONS = 0o640
-DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
