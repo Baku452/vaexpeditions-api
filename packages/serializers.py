@@ -7,18 +7,18 @@ from itineraries.serializers import (
     DatesAndPricesSerializer,
 )
 
-class NotificationSerializer(serializers.ModelSerializer):
 
+class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
-        fields = '__all__'
+        fields = "__all__"
 
 
 class InterestSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Interest
-        fields = '__all__'
+        fields = "__all__"
+
 
 class PackageSerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(read_only=True)
@@ -26,20 +26,41 @@ class PackageSerializer(serializers.ModelSerializer):
     destination_name = serializers.StringRelatedField(source="destination")
     country_name = serializers.StringRelatedField(source="country")
     activity_name = serializers.StringRelatedField(source="activity")
+
     class Meta:
         model = Package
-        fields = ['id','title','slug','activity','days','published','destination','package_type','interest','destination_name','thumbnail','country','country_name','type_name','activity_name','summary', 'where_to_go']
+        fields = [
+            "id",
+            "title",
+            "slug",
+            "activity",
+            "days",
+            "published",
+            "destination",
+            "package_type",
+            "interest",
+            "destination_name",
+            "thumbnail",
+            "country",
+            "country_name",
+            "type_name",
+            "activity_name",
+            "summary",
+            "where_to_go",
+        ]
+
 
 class PackageTitleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Package
-        fields = ['title','slug','days', 'package_type']
+        fields = ["title", "slug", "days", "package_type"]
+
 
 class PackageTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = PackageType
-        fields = '__all__'
+        fields = "__all__"
+
 
 class PackageTypeHomeSerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(read_only=True)
@@ -56,17 +77,15 @@ class PackageTypeNavSerializer(serializers.ModelSerializer):
 
 
 class PackageImageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = PackageImage
-        fields = ['id', 'image', 'alt']
+        fields = ["id", "image", "alt"]
 
 
 class SpecialistSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Specialist
-        fields = '__all__'
+        fields = "__all__"
 
 
 class PackageDetailSerializer(serializers.ModelSerializer):
@@ -79,10 +98,11 @@ class PackageDetailSerializer(serializers.ModelSerializer):
     dates_prices = DatesAndPricesSerializer(many=True, read_only=True)
     destination_name = serializers.StringRelatedField(source="destination")
     type_name = serializers.StringRelatedField(many=True, source="package_type")
+    activity_name = serializers.CharField(source="get_activity_display")
 
     class Meta:
         model = Package
-        fields = '__all__'
+        fields = "__all__"
 
 
 class PackageDetailTypesSerializer(serializers.ModelSerializer):
@@ -91,4 +111,4 @@ class PackageDetailTypesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Package
-        fields = '__all__'
+        fields = "__all__"
