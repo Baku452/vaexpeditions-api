@@ -70,7 +70,7 @@ from packages.views import (
 
 from itineraries.views import ItineraryRetrieveApi
 
-from specialists.views import ContactCreateApi, NewsletterCreateApi
+from specialists.views import ContactCreateApi, NewsletterCreateApi, ContactB2CCreateApi
 
 from tailors.views import (
     TailorListApi,
@@ -86,6 +86,7 @@ from ourteam.views import CollaboratorsListApi, CollaboratorRetrieveApi
 
 from popUp.views import PopUpListApi
 
+from pages.views import PageApi, PageListApi
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -207,7 +208,7 @@ urlpatterns = [
     path("blog/<str:slug>", BlogRetrieveApi.as_view(), name="blog-retrieve"),
     path("blogtypes/", BlogTypeListApi.as_view(), name="blog-types"),
     path("blog/", BlogSearchApi.as_view(), name="blog-search"),
-    path("blog/popular/", BlogPopular.as_view(), name="blog-search"),
+    path("blog/popular/", BlogPopular.as_view(), name="blog-popular"),
     path("blog/list/", BlogListApi.as_view(), name="blog-list"),
     path("collaborators/", CollaboratorsListApi.as_view(), name="collaborators-list"),
     path(
@@ -215,5 +216,8 @@ urlpatterns = [
         CollaboratorRetrieveApi.as_view(),
         name="collaborators-retrievet",
     ),
+    path("pages/list/", PageListApi.as_view(), name="page-SLUG"),
+    path("pages/<str:slug>", PageApi.as_view(), name="page-list"),
+    path("contact_b2c/", ContactB2CCreateApi.as_view(), name="contact_b2c-create"),
     url(r"^ckeditor/", include("ckeditor_uploader.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
