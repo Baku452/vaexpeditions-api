@@ -16,6 +16,7 @@ class BlogAdmin(ClonableModelAdmin):
         "destination",
         "interest",
         "blog_type",
+        "created",
     )
     search_fields = ("title", "destination__title")
 

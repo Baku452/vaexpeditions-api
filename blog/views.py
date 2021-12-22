@@ -55,7 +55,7 @@ class BlogFilter(filters.FilterSet):
 
 
 class BlogSearchApi(generics.ListAPIView):
-    queryset = Blog.objects.all().filter(published=True).distinct()
+    queryset = Blog.objects.all().filter(published=True).order_by("-created").distinct()
     serializer_class = BlogDetailSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = BlogFilter
