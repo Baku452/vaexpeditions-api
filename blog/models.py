@@ -101,7 +101,7 @@ class Blog(models.Model):
     )
     popular = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=False)
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
