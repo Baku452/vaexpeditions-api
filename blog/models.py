@@ -109,3 +109,18 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Blogger(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    biography = models.TextField()
+    image = ProcessedImageField(
+        upload_to="images/blogger/",
+        processors=[ResizeToFill(400, 600)],
+        format="JPEG",
+        options={"quality": 100},
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.user.username

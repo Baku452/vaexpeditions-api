@@ -38,12 +38,16 @@ from destinations.views import (
     CountryHomeApi,
 )
 
+
 from blog.views import (
     BlogTypeListApi,
     BlogRetrieveApi,
     BlogSearchApi,
     BlogListApi,
     BlogPopular,
+    BloggerListApi,
+    BloggerRetrieveApi,
+
 )
 
 from packages.views import (
@@ -210,6 +214,8 @@ urlpatterns = [
     path("blog/", BlogSearchApi.as_view(), name="blog-search"),
     path("blog/popular/", BlogPopular.as_view(), name="blog-popular"),
     path("blog/list/", BlogListApi.as_view(), name="blog-list"),
+    path("blogger/list/", BloggerListApi.as_view(), name="blogger-list"),
+    path("blogger/<int:user>", BloggerRetrieveApi.as_view(), name="blog-list"),
     path("collaborators/", CollaboratorsListApi.as_view(), name="collaborators-list"),
     path(
         "collaborators/<str:slug>",
