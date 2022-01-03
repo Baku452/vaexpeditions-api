@@ -178,7 +178,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 
 TINYMCE_DEFAULT_CONFIG = {
-    "plugins": "link lists autolink",
+    "plugins": "link lists autolink table code",
     "cleanup_on_startup": True,
     "custom_undo_redo_levels": 120,
     "toolbar": "undo redo | bold italic underline strikethrough | alignleft "
