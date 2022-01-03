@@ -1,14 +1,12 @@
-from .models import Blog, BlogType
+from .models import Blog, BlogType, Blogger
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.db.models.functions import Concat
-
 
 class BlogTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogType
         fields = "__all__"
-
 
 class BlogDetailSerializer(serializers.ModelSerializer):
     first_name = serializers.ReadOnlyField(source="author.first_name")
@@ -29,7 +27,6 @@ class BlogDetailSerializer(serializers.ModelSerializer):
         model = Blog
         fields = "__all__"
 
-
 class BlogDetailTypesSerializer(serializers.ModelSerializer):
 
     blog_type = BlogTypeSerializer(read_only=True)
@@ -37,7 +34,6 @@ class BlogDetailTypesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
         fields = "__all__"
-
 
 class BlogSerializer(serializers.ModelSerializer):
     # thumbnail = serializers.ImageField(read_only=True)
@@ -48,4 +44,12 @@ class BlogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
+        fields = "__all__"
+
+class BloggerSerializer(serializers.ModelSerializer):
+    first_name = serializers.ReadOnlyField(source="user.first_name")
+    last_name = serializers.ReadOnlyField(source="user.last_name")
+
+    class Meta:
+        model = Blogger
         fields = "__all__"
