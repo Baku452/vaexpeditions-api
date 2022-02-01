@@ -387,7 +387,7 @@ class WhereToGo(models.Model):
     image = models.FileField(upload_to="images/whereto/")
     thumbnail = ImageSpecField(
         source="image",
-        processors=[ResizeToFill(390, 230)],
+        processors=[ResizeToFill(385, 290)],
         format="JPEG",
         options={"quality": 100},
     )
@@ -398,6 +398,31 @@ class WhereToGo(models.Model):
     class Meta:
         db_table = "wheretogo"
         verbose_name_plural = "Where to Go - Items"
+
+    def __str__(self):
+        return self.title
+
+class HighLigths(models.Model):
+    title = models.CharField(max_length=255)
+    summary = models.TextField(max_length=150, default="", blank=True)
+    slug = AutoSlugField(populate_from="title", unique=True, always_update=True)
+    Destination = models.ForeignKey(
+        Destination, default=None, related_name="highligths", on_delete=models.CASCADE
+    )
+    image = models.FileField(upload_to="images/highligths/")
+    thumbnail = ImageSpecField(
+        source="image",
+        processors=[ResizeToFill(385, 290)],
+        format="JPEG",
+        options={"quality": 100},
+    )
+    active = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "highligths"
+        verbose_name_plural = "highligths"
 
     def __str__(self):
         return self.title

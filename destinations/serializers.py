@@ -10,6 +10,7 @@ from .models import (
     WhereToGo,
     ItemWhere,
     TravelAdvice,
+    HighLigths
 )
 from packages.models import Package
 from rest_framework import serializers
@@ -68,6 +69,12 @@ class WhereSerializer(serializers.ModelSerializer):
         model = WhereToGo
         fields = "__all__"
 
+class HighLigthsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = HighLigths
+        fields = "__all__"
+
 
 class WhereHomeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -116,6 +123,7 @@ class DestinationSerializer(serializers.ModelSerializer):
     where = WhereSerializer(many=True, read_only=True)
     thumbnail = serializers.ImageField(read_only=True)
     original = serializers.ImageField(read_only=True)
+    highligths = HighLigthsSerializer(many=True,read_only=True )
     destination_name = serializers.StringRelatedField(source="destination")
 
     class Meta:
