@@ -5,7 +5,7 @@ from django.utils.html import mark_safe
 from imagekit.models import ImageSpecField, ProcessedImageField
 from autoslug import AutoSlugField
 from imagekit.processors import ResizeToFill
-from destinations.models import Destination, Country, WhereToGo
+from destinations.models import Destination, WhereToGo
 from django.core.validators import FileExtensionValidator
 from smart_selects.db_fields import ChainedForeignKey
 import os
@@ -104,6 +104,14 @@ def path_and_rename_package(instance, filename):
         filename = "{}.{}".format(instance.slug, ext)
     return os.path.join(upload_to, filename)
 
+def path_and_rename_packageType(instance, filename):
+    upload_to = "images/packages_types"
+    ext = filename.split(".")[-1]
+    if instance.pk:
+        filename = "{}.{}".format(instance.slug, ext)
+    else:
+        filename = "{}.{}".format(instance.slug, ext)
+    return os.path.join(upload_to, filename)
 
 class Month(models.Model):
     name = models.CharField(
@@ -120,6 +128,15 @@ class Month(models.Model):
 
 class PackageType(models.Model):
     title = models.CharField(max_length=255)
+    titleSEO = models.CharField(max_length=255, blank=True, null=True)
+    descriptionSEO = models.CharField(max_length=255, blank=True, null=True)
+    keywordsSEO = models.CharField(max_length=255, blank=True, null=True)
+    slug = AutoSlugField(
+        default="",
+        populate_from="title", 
+        unique_with=["title"], 
+        always_update=True
+    )
     content = models.TextField(default="")
     active = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
@@ -128,13 +145,21 @@ class PackageType(models.Model):
         default="",
         validators=[FileExtensionValidator(["svg"])],
     )
-
-    image = models.FileField(upload_to="images/package_type/", blank=True, null=True)
-    thumbnail = ImageSpecField(
-        source="image",
-        processors=[ResizeToFill(340, 440)],
+    image = ProcessedImageField(
+        upload_to=path_and_rename_packageType,
+        processors=[ResizeToFill(1900, 500)],
         format="JPEG",
-        options={"quality": 98},
+        options={"quality": 100},
+        blank=True,
+        null=True,
+    )
+
+    thumbnail = ProcessedImageField(
+        upload_to=path_and_rename_packageType,
+        processors=[ResizeToFill(380, 500)],
+        format="JPEG",
+        blank=True,
+        null=True,
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -222,12 +247,6 @@ class Package(models.Model):
         default=None,
         on_delete=models.CASCADE,
         related_name="packages",
-    )
-
-    country = models.ForeignKey(
-        Country,
-        default=None,
-        on_delete=models.CASCADE,
     )
 
     activity = models.IntegerField(choices=ACTIVITY_CHOICES, default=1)

@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from django.http import Http404
 
-from .models import Destination, Country, Banner, WhereToGo
-from .serializers import CountryHomeSerializer, CountrySerializer, BannerSerializer, DestinationSerializer, CitySerializer, WhereSerializer, DestinationHomeSerializer
+from .models import Destination, Continent, Banner, WhereToGo
+from .serializers import *
 
 
 def get_object(slug):
@@ -14,10 +14,10 @@ def get_object(slug):
         raise Http404
 
 
-def get_object_country(slug):
+def get_object_continent(slug):
     try:
-        return Country.objects.get(slug=slug)
-    except Country.DoesNotExist:
+        return Continent.objects.get(slug=slug)
+    except Continent.DoesNotExist:
         raise Http404
 
 def get_object_city(slug):
@@ -26,26 +26,28 @@ def get_object_city(slug):
     except WhereToGo.DoesNotExist:
         raise Http404
 
+#Continent Views
 
-class CountryRetrieveApi(APIView):
+class ContinentRetrieveApi(APIView):
     def get(self, request, slug):
-        country = get_object_country(slug)
-        serializer = CountrySerializer(country)
+        continent = get_object_continent(slug)
+        serializer = ContinentSerializer(continent)
         return Response(serializer.data, status=HTTP_200_OK)
 
 
-class CountryListApi(APIView):
+class ContinentListApi(APIView):
     def get(self, request):
-        countries = Country.objects.filter(active=True)
-        serializer = CountrySerializer(countries, many=True)
+        countries = Continent.objects.filter(active=True)
+        serializer = ContinentSerializer(countries, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
 
-class CountryHomeApi(APIView):
+class ContinentHomeApi(APIView):
     def get(self, request):
-        countries = Country.objects.filter(active=True)
-        serializer = CountryHomeSerializer(countries, many=True)
+        continents = Continent.objects.filter(active=True)
+        serializer = ContinentHomeSerializer(countries, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
 
+#Destination Views
 
 class DestinationRetrieveApi(APIView):
     def get(self, request, slug):
@@ -63,8 +65,8 @@ class EveryoneDestinationApi(APIView):
 
 class DestinationListApi(APIView):
     def get(self, request):
-        countries = Country.objects.filter(active=True)
-        serializer = CountrySerializer(countries, many=True)
+        destinations = Destination.objects.filter(active=True)
+        serializer = DestinationSerializer(destinations, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
 
 class DestinationTitleBannerApi(APIView):
@@ -73,12 +75,15 @@ class DestinationTitleBannerApi(APIView):
         serializer = DestinationHomeSerializer(destinations, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
 
+#Banner Views
 
 class BannerListApi(APIView):
     def get(self, request):
         banners = Banner.objects.all().filter(active=True)
         serializer = BannerSerializer(banners, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
+
+#Cities Views
 
 class CitiesApi(APIView):
     def get(self, request):

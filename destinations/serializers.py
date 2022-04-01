@@ -1,5 +1,5 @@
 from .models import (
-    Country,
+    Continent,
     Banner,
     Destination,
     Reason,
@@ -107,11 +107,7 @@ class PackageSerializer(serializers.ModelSerializer):
         ]
 
 
-class ContinentImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DestinationImage
-        fields = "__all__"
-
+#Destination Serializer
 
 class DestinationSerializer(serializers.ModelSerializer):
     reasons = ReasonSerializer(many=True, read_only=True)
@@ -150,33 +146,43 @@ class DestinationHomeSerializer(serializers.ModelSerializer):
             "image_home",
         ]
 
+#Continent Serializer
 
-class CountrySerializer(serializers.ModelSerializer):
+class ContinentImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DestinationImage
+        fields = "__all__"
 
-    package_type = PackageTypeSerializer(many=True, read_only=True)
+
+class ContinentSerializer(serializers.ModelSerializer):
     destinations = DestinationSerializer(many=True, read_only=True)
     thumbnail = serializers.ImageField(read_only=True)
     original = serializers.ImageField(read_only=True)
     images = ContinentImageSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Country
+        model = Continent
         fields = "__all__"
 
 
-class CountryHomeSerializer(serializers.ModelSerializer):
+class ContinentHomeSerializer(serializers.ModelSerializer):
     destinations = DestinationHomeSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Country
+        model = Continent
         fields = ["id", "name", "slug", "destinations"]
 
+
+
+
+#Banner Serializer
 
 class BannerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Banner
         fields = "__all__"
 
+#City Serializer
 
 class CitySerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(read_only=True)

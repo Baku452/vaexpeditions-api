@@ -10,7 +10,6 @@ from .serializers import (
     PackageSerializer,
     PackageTypeSerializer,
     PackageDetailSerializer,
-    PackageDetailTypesSerializer,
     InterestSerializer,
     NotificationSerializer,
     PackageTitleSerializer,
@@ -42,13 +41,13 @@ def get_object_id(pk):
     except Package.DoesNotExist:
         raise Http404
 
+def get_object_package_type(slug):
+    try:
+        return PackageType.objects.get(slug=slug)
+    except Package.DoesNotExist:
+        raise Http404
 
-class PackageRetrieveApi(APIView):
-    def get(self, request, slug):
-        package = get_object(slug)
-        serializer = PackageDetailSerializer(package)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
+#Notification
 
 class NotificationRetrieveApi(APIView):
     def get(self, request, slug):
@@ -63,39 +62,7 @@ class NotificationListApi(APIView):
         serializer = NotificationSerializer(notifications, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-class PackageTypeListApi(APIView):
-    def get(self, request):
-        packages = PackageType.objects.all().filter(active=True)
-        serializer = PackageTypeSerializer(packages, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class PackageTypeNavApi(APIView):
-    def get(self, request):
-        packages = PackageType.objects.all().filter(active=True)
-        serializer = PackageTypeNavSerializer(packages, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class PackageTypeHomeApi(APIView):
-    def get(self, request):
-        packages = PackageType.objects.all().filter(active=True)
-        serializer = PackageTypeHomeSerializer(packages, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class PackageTypeDetailApi(APIView):
-    def get(self, request, pk):
-        package = get_object_id(pk)
-        serializer = PackageDetailTypesSerializer(package)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class InterestListApi(APIView):
-    def get(self, request):
-        interests = Interest.objects.all().filter(active=True)
-        serializer = InterestSerializer(interests, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
+#Packages 
 
 class PackageHomeListApi(APIView):
     def get(self, request):
@@ -134,6 +101,48 @@ class PackageOptionalTours(APIView):
         packages = Package.objects.all().filter(optional=True)
         serializer = PackageSerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PackageRetrieveApi(APIView):
+    def get(self, request, slug):
+        package = get_object(slug)
+        serializer = PackageDetailSerializer(package)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class PackageTypeListApi(APIView):
+    def get(self, request):
+        types = PackageType.objects.all().filter(active=True)
+        serializer = PackageTypeSerializer(types, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+#Package Types
+
+class PackageTypeNavApi(APIView):
+    def get(self, request):
+        packages = PackageType.objects.all().filter(active=True)
+        serializer = PackageTypeNavSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PackageTypeHomeApi(APIView):
+    def get(self, request):
+        packages = PackageType.objects.all().filter(active=True)
+        serializer = PackageTypeHomeSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PackageTypeRetrieve(APIView):
+    def get(self, request, slug):
+        packageType = get_object_package_type(slug)
+        serializer = PackageTypeSerializer(packageType)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+#Interest
+
+class InterestListApi(APIView):
+    def get(self, request):
+        interests = Interest.objects.all().filter(active=True)
+        serializer = InterestSerializer(interests, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 
 class NumberInFilter(filters.BaseInFilter, filters.NumberFilter):

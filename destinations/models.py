@@ -93,37 +93,24 @@ MONTHS_CHOICES = (
 )
 
 
-class Country(models.Model):
+class Continent(models.Model):
     name = models.CharField(max_length=255)
     content = HTMLField(default=None, blank=True, null=True)
     quote = HTMLField(default=None, blank=True, null=True)
-
     slug = AutoSlugField(populate_from="name", unique_with=["name"], always_update=True)
-
     image = models.FileField(upload_to="images/countries/")
-
     thumbnail = ImageSpecField(
         source="image",
         processors=[ResizeToFill(350, 250)],
         format="JPEG",
         options={"quality": 98},
     )
-
     original = ImageSpecField(
         source="image",
         processors=[ResizeToFill(1600, 700)],
         format="JPEG",
         options={"quality": 98},
     )
-
-    package_type = models.ManyToManyField(to="packages.PackageType")
-
-    show_tab_overview = models.BooleanField(default=True)
-    show_tab_holidays = models.BooleanField(default=True)
-    show_tab_tour_in = models.BooleanField(default=True)
-    show_tab_reason_why = models.BooleanField(default=True)
-    show_tab_what_to_do = models.BooleanField(default=True)
-    show_tab_when_to_go = models.BooleanField(default=True)
 
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
@@ -133,7 +120,7 @@ class Country(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = "country"
+        db_table = "continent"
         ordering = ["order"]
         verbose_name_plural = "Continents"
 
@@ -142,15 +129,10 @@ class Country(models.Model):
 
 
 class ContinentImage(models.Model):
-    continent = models.ForeignKey(
-        Country, related_name="images", default=None, on_delete=models.CASCADE
-    )
+    continent = models.ForeignKey(Continent, related_name="images", default=None, null=True, on_delete=models.CASCADE)
     alt = models.CharField(max_length=255, default="")
-
     slug = AutoSlugField(populate_from="alt", unique_with=["alt"], always_update=True)
-
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
-
     image = ProcessedImageField(
         upload_to=path_and_rename_continent,
         processors=[ResizeToFill(1600, 700)],
@@ -173,21 +155,13 @@ class ContinentImage(models.Model):
 
 class Destination(models.Model):
     title = models.CharField(max_length=255)
-
     sub_title = models.CharField(max_length=255, default="", blank=True)
-
     summary = models.TextField(max_length=150, default="", blank=True)
-
-    # reasons = models.ManyToManyField(Reason)
-
     slug = AutoSlugField(
         populate_from="title", unique_with=["title"], always_update=True
     )
-
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
-
     image = models.FileField(upload_to="images/countries/")
-
     thumbnail = ImageSpecField(
         source="image",
         processors=[ResizeToFill(350, 200)],
@@ -206,24 +180,18 @@ class Destination(models.Model):
         format="JPEG",
         options={"quality": 98},
     )
-
     content = HTMLField(default=None, blank=True, null=True)
     travelfact = HTMLField(default=None, blank=True, null=True)
     travelAdvice = RichTextUploadingField()
     bestTime = HTMLField(default=None, blank=True, null=True)
     imageTraveFact = models.FileField(upload_to="images/countries/")
-
     weather_content = HTMLField(default=None, blank=True, null=True)
-
-    country = models.ForeignKey(
-        Country, default=None, related_name="destinations", on_delete=models.CASCADE
+    continent = models.ForeignKey(
+        Continent, default=None, null=True, related_name="destinations", on_delete=models.CASCADE
     )
-
     tailor_made = models.BooleanField(default=False)
-
     is_what_to_do = models.BooleanField(default=False)
     is_why_reason = models.BooleanField(default=False)
-
     active = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -240,27 +208,22 @@ class Destination(models.Model):
 class Reason(models.Model):
     title = models.CharField(max_length=255)
     summary = models.TextField(max_length=150, default="", blank=True)
-
     destination = models.ForeignKey(
         Destination, default=None, related_name="reasons", on_delete=models.CASCADE
     )
-
     image = models.FileField(upload_to="images/reasons/")
-
     thumbnail = ImageSpecField(
         source="image",
         processors=[ResizeToFill(390, 230)],
         format="JPEG",
         options={"quality": 98},
     )
-
     original = ImageSpecField(
         source="image",
         processors=[ResizeToFill(1600, 700)],
         format="JPEG",
         options={"quality": 98},
     )
-
     interest = models.ForeignKey(
         to="packages.Interest",
         default=None,
@@ -269,9 +232,7 @@ class Reason(models.Model):
         related_name="interests",
         on_delete=models.CASCADE,
     )
-
     active = models.BooleanField(default=False)
-
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -287,11 +248,8 @@ class DestinationImage(models.Model):
         Destination, related_name="images", default=None, on_delete=models.CASCADE
     )
     alt = models.CharField(max_length=255, default="")
-
     slug = AutoSlugField(populate_from="alt", unique_with=["alt"], always_update=True)
-
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
-
     image = ProcessedImageField(
         upload_to=path_and_rename_destination, format="JPEG", options={"quality": 100}
     )
@@ -307,13 +265,10 @@ class DestinationImage(models.Model):
 
 
 class WeatherItems(models.Model):
-
     month = models.CharField(max_length=100, choices=MONTHS_CHOICES, default="")
-
     destination = models.ForeignKey(
         Destination, default=None, related_name="weathers", on_delete=models.CASCADE
     )
-
     degrees = models.IntegerField(default=0, blank=False, null=False)
     rain = models.PositiveIntegerField(default=0, blank=False, null=False)
 
