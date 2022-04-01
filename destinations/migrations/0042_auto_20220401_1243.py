@@ -14,32 +14,4 @@ class Migration(migrations.Migration):
             name='country',
             options={},
         ),
-        # migrations.RemoveField(
-        #     model_name='country',
-        #     name='package_type',
-        # ),
-        # migrations.RemoveField(
-        #     model_name='country',
-        #     name='show_tab_holidays',
-        # ),
-        # migrations.RemoveField(
-        #     model_name='country',
-        #     name='show_tab_overview',
-        # ),
-        # migrations.RemoveField(
-        #     model_name='country',
-        #     name='show_tab_reason_why',
-        # ),
-        # migrations.RemoveField(
-        #     model_name='country',
-        #     name='show_tab_tour_in',
-        # ),
-        # migrations.RemoveField(
-        #     model_name='country',
-        #     name='show_tab_what_to_do',
-        # ),
-        # migrations.RemoveField(
-        #     model_name='country',
-        #     name='show_tab_when_to_go',
-        # ),
     ]

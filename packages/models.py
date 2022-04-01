@@ -236,13 +236,6 @@ class Package(models.Model):
 
     month = models.ManyToManyField(Month)
 
-    country = models.ForeignKey(
-        Country,
-        related_name="country",
-        default=None,
-        on_delete=models.CASCADE,
-    )
-
     specialist = models.ForeignKey(
         Specialist,
         related_name="specialist",
