@@ -41,9 +41,9 @@ class Migration(migrations.Migration):
             model_name='destination',
             name='country',
         ),
-        migrations.DeleteModel(
-            name='Country',
-        ),
+        # migrations.DeleteModel(
+        #     name='Country',
+        # ),
         migrations.AddField(
             model_name='destination',
             name='continent',

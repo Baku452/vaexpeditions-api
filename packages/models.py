@@ -1,5 +1,6 @@
 from django.db import models
 from specialists.models import Specialist
+from destinations.models import Country
 from tinymce.models import HTMLField
 from django.utils.html import mark_safe
 from imagekit.models import ImageSpecField, ProcessedImageField
@@ -234,6 +235,13 @@ class Package(models.Model):
     interest = models.ManyToManyField(Interest)
 
     month = models.ManyToManyField(Month)
+
+    country = models.ForeignKey(
+        Country,
+        related_name="country",
+        default=None,
+        on_delete=models.CASCADE,
+    )
 
     specialist = models.ForeignKey(
         Specialist,
