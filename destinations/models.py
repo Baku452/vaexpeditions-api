@@ -92,37 +92,6 @@ MONTHS_CHOICES = (
     ("DEC", "December"),
 )
 
-class Country(models.Model):
-    name = models.CharField(max_length=255)
-    content = HTMLField(default=None, blank=True, null=True)
-    quote = HTMLField(default=None, blank=True, null=True)
-    slug = AutoSlugField(populate_from="name", unique_with=["name"], always_update=True)
-    image = models.FileField(upload_to="images/countries/")
-    thumbnail = ImageSpecField(
-        source="image",
-        processors=[ResizeToFill(350, 250)],
-        format="JPEG",
-        options={"quality": 98},
-    )
-    original = ImageSpecField(
-        source="image",
-        processors=[ResizeToFill(1600, 700)],
-        format="JPEG",
-        options={"quality": 98},
-    )
-
-    order = models.PositiveIntegerField(default=0, blank=False, null=False)
-
-    active = models.BooleanField(default=True)
-
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    class Meta:
-        db_table = "country"
-
-    def __str__(self):
-        return self.name
-
 class Continent(models.Model):
     name = models.CharField(max_length=255)
     content = HTMLField(default=None, blank=True, null=True)

@@ -1,6 +1,5 @@
 from django.db import models
 from specialists.models import Specialist
-from destinations.models import Country
 from tinymce.models import HTMLField
 from django.utils.html import mark_safe
 from imagekit.models import ImageSpecField, ProcessedImageField
