@@ -107,7 +107,6 @@ ul li {
     color: rgb(18,56,102);
     font-weight: bold;
     padding:10px;
-	padding-left: 0;
   }
 
 /* Let's make sure tables in the content area are 100% wide */
@@ -124,10 +123,6 @@ ul li {
 	padding:0!important;
 	margin:0 auto;
 	max-width:800px!important;
-}
-.linkProduct{
-	margin-bottom: 10px !important;
-	display: block !important;
 }
 
 
@@ -161,33 +156,51 @@ ul li {
 			<table>
 				<tr>
 					<td>
-            			{% if is_promo %}
-              			<h2 class="heading">Promotional Tour - Web opportunity</h2>
-            			{% else %}
-              			<h2 class="heading">Web opportunity</h2>
-            			{% endif %}
+            {% if is_promo %}
+              <h2 class="heading">Promotional Tour - Web opportunity</h2>
+            {% else %}
+              <h2 class="heading">Web opportunity</h2>
+            {% endif %}
 						<h3>Package: {{package}}</h3>
 					</td>
-        		</tr>
+        </tr>
                 <tr>
                   <td>
-                    <a class="linkProduct" href="{{url}}">Product Link</a>
+                    <a href="{{url}}">Product Link</a>
                   </td>
                 </tr>
 				<tr>
 					<td>
-					  	<p>
+					  <p>
 						  Additional Information: <strong>{{extra_data}}
 						</p></strong>
 					</td>
 				  </tr>
                 <tr>
                     <td>
-                        <p>  
-                        	Client: <strong>{{first_name}} {{last_name}} <strong>
-                      	</p>
+                        <p>
+                          
+                            Client: <strong>{{first_name}} {{last_name}} <strong>
+                        
+                      </p>
                     </td>
                 </tr>
+				<tr>
+                    <td>
+                        <p>
+                            Type: Client: <strong>{{typeClient}}<strong>
+                      </p>
+                    </td>
+                </tr>
+				{% if company %}
+				<tr>
+					<td>
+						<p>
+						Company: <strong>{{company}}<strong>
+			  			</p>
+					</td>
+				</tr>
+				{% endif %}
                 <tr>
                     <td>
                       <p>
@@ -196,39 +209,34 @@ ul li {
                       </p>
                     </td>
                 </tr>
-                <tr>
+				<tr>
                     <td>
-                    	<p>
-                        	Cellphone / Tel: <strong>{{number}}<strong>
-                      	</p>
+                      <p>
+                        Country: <strong>{{country}}<strong>
+                      </p>
                     </td>
                 </tr>
 				<tr>
-					<td>
-						<p>
-							Country: <strong>{{country}}</strong>
-						</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>
-							State: <strong>{{state}}</strong>
-						</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>
-							City: <strong>{{city}}</strong>
-						</p>
-					</td>
-				</tr>
+                    <td>
+                      <p>
+                        City: <strong>{{city}}<strong>
+                      </p>
+                    </td>
+                </tr>
                 <tr>
                     <td>
-						<p>Description: 
+                      <p>
+                        Cellphone / Tel: <strong>{{phone}}<strong>
+                        
+                      </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                      <p class="detalles">
+						Description: <br/> 
                         {{message}}
-                      	</p>
+                      </p>
                     </td>
                 </tr>
 			</table>

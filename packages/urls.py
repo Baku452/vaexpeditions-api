@@ -12,6 +12,7 @@ urlpatterns = [
     path("list/", views.PackageListApi.as_view(), name="packages-list"),
     path("optional/",views.PackageOptionalSearchApi.as_view(),name="packages-optional",),
     path("off-the-beaten/<str:slug>",views.PackageDestinationListApi.as_view(),name="packages-optional",),
+    path("top/<int:id>",views.PackagesTop.as_view(),name="packages-top",),
     
     #Packages Types
     path("types/", views.PackageTypeListApi.as_view(), name="packages-type-list"),
@@ -22,4 +23,6 @@ urlpatterns = [
     #Interest
     path("interests/", views.InterestListApi.as_view(), name="interest-list"),
 
+    #Cities inside Destinations
+    path("<str:slug_destination>/city/<str:slug>",views.PackageCitiesListApi.as_view(),name="packages-Cities",),
 ]

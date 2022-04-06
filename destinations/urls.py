@@ -6,7 +6,6 @@ urlpatterns = [
     #Destinations
     path("", views.DestinationListApi.as_view(), name="destination-list"),
     path("home/",views.DestinationTitleBannerApi.as_view(),name="destination-list",),
-    path("everyone/",views.EveryoneDestinationApi.as_view(),name="destination-everyone",),
     path("<str:slug>",views.DestinationRetrieveApi.as_view(),name="destination-retrieve",),
     #Banners
     path("banners/", views.BannerListApi.as_view(), name="banners-list"),

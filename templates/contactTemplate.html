@@ -157,7 +157,7 @@ ul li {
 				<tr>
 					<td>
             <h2 class="heading">Web opportunity</h2>
-						<h3>Package: {{package}}</h3>
+						<h3>Contact Us</h3>
 					</td>
                 </tr>
                 <tr>
@@ -167,6 +167,22 @@ ul li {
                       </p>
                     </td>
                 </tr>
+				        <tr>
+                    <td>
+                        <p>
+                            Type of Client: <strong>{{typeClient}}<strong>
+                      </p>
+                    </td>
+                </tr>
+                {% if company %}
+				        <tr>
+                    <td>
+                        <p>
+                        Company: <strong>{{company}}<strong>
+                      </p>
+                    </td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td>
                       <p>
@@ -175,10 +191,17 @@ ul li {
                       </p>
                     </td>
                 </tr>
-                                  <tr>
+                <tr>
+                  <td>
+                    <p>
+                      Country: <strong>{{country}}<strong>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
                     <td>
                       <p>
-                        Cellphone / Tel: <strong>{{number}}<strong>
+                        Cellphone / Tel: <strong>{{phone}}<strong>
                         
                       </p>
                     </td>
@@ -191,6 +214,16 @@ ul li {
                       </p>
                     </td>
                 </tr>
+                {% if package %}
+                <tr>
+                  <td>
+                    <p>
+                      Package: <strong>{{package}} <strong>
+                      
+                    </p>
+                  </td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td>
                       <p class="detalles">

@@ -55,18 +55,10 @@ class DestinationRetrieveApi(APIView):
         serializer = DestinationSerializer(destination)
         return Response(serializer.data, status=HTTP_200_OK)
 
-
-class EveryoneDestinationApi(APIView):
-    def get(self, request):
-        destinations = Destination.objects.filter(active=True)
-        serializer = DestinationSerializer(destinations, many=True)
-        return Response(serializer.data, status=HTTP_200_OK)
-
-
 class DestinationListApi(APIView):
     def get(self, request):
         destinations = Destination.objects.filter(active=True)
-        serializer = DestinationSerializer(destinations, many=True)
+        serializer = DestinationHomeSerializer(destinations, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
 
 class DestinationTitleBannerApi(APIView):

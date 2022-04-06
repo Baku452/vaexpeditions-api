@@ -15,11 +15,13 @@ class ContactUsAdmin(admin.ModelAdmin):
         "first_name",
         "last_name",
         "email",
-        "country_residence",
+        "phone",
+        "country",
         "destination_interest",
         "message",
+        "typeClient",
+        "company",
         "is_newsletter",
-        "package",
     )
     pass
 
@@ -44,9 +46,11 @@ class ContactUsB2CAdmin(admin.ModelAdmin):
         "email",
         "country",
         "state",
-        "number",
+        "phone",
         "city",
         "message",
+        "typeClient",
+        "company",
         "is_newsletter",
     )
     pass

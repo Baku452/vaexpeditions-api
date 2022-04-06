@@ -108,14 +108,20 @@ class PackageRetrieveApi(APIView):
         serializer = PackageDetailSerializer(package)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class PackagesTop(generics.ListAPIView):
+    serializer_class = PackageTitleSerializer
+    def get_queryset(self):
+        idCountry = self.kwargs.get('id')
+        queryset = Package.objects.filter(published=True, destination__id=idCountry).order_by('-rating')[:5]
+        return queryset
 
+
+#Package Types
 class PackageTypeListApi(APIView):
     def get(self, request):
         types = PackageType.objects.all().filter(active=True)
         serializer = PackageTypeSerializer(types, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-#Package Types
 
 class PackageTypeNavApi(APIView):
     def get(self, request):
@@ -225,4 +231,11 @@ class PackageTitleApi(APIView):
     def get(self, request):
         packages = Package.objects.all().filter(published=True).order_by('-rating')
         serializer = PackageTitleSerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+#Cities inside Destinations
+class PackageCitiesListApi(APIView):
+    def get(self, request, slug, slug_destination):
+        packages = Package.objects.all().filter(published=True,destination__slug=slug_destination,where_to_go__slug=slug)[:6]
+        serializer = PackageSerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
